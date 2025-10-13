@@ -4,6 +4,7 @@ import org.sopt.controller.MemberController;
 import org.sopt.domain.Member;
 import org.sopt.domain.enums.Gender;
 import org.sopt.repository.MemoryMemberRepository;
+import org.sopt.service.MemberService;
 import org.sopt.service.MemberServiceImpl;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
 
         MemoryMemberRepository memberRepository = new MemoryMemberRepository();
-        MemberServiceImpl memberService = new MemberServiceImpl(memberRepository);
+        MemberService memberService = new MemberServiceImpl(memberRepository);
         MemberController memberController = new MemberController(memberService);
 
         Scanner scanner = new Scanner(System.in);

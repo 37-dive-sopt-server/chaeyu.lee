@@ -2,16 +2,16 @@ package org.sopt.controller;
 
 import org.sopt.domain.Member;
 import org.sopt.domain.enums.Gender;
-import org.sopt.service.MemberServiceImpl;
+import org.sopt.service.MemberService;
 
 import java.util.List;
 import java.util.Optional;
 
 public class MemberController {
 
-    private final MemberServiceImpl memberService;
+    private final MemberService memberService;
 
-    public MemberController(MemberServiceImpl memberService) {
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
