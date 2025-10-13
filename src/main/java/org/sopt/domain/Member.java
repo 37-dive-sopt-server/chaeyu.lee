@@ -10,7 +10,7 @@ public class Member {
     private String birth;
     private Gender gender;
 
-    public Member(Long id, String name, String email, String birth, Gender gender) {
+    public Member(Long id, String name, String birth, String email, Gender gender) {
         this.id = id;
         this.name = name;
         this.email = email;
