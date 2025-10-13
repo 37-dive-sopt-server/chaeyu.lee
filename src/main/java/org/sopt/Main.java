@@ -2,6 +2,7 @@ package org.sopt;
 
 import org.sopt.controller.MemberController;
 import org.sopt.domain.Member;
+import org.sopt.domain.enums.Gender;
 import org.sopt.repository.MemoryMemberRepository;
 import org.sopt.service.MemberServiceImpl;
 
@@ -38,7 +39,28 @@ public class Main {
                         System.out.println("⚠️ 이름을 입력해주세요.");
                         continue;
                     }
-                    Long createdId = memberController.createMember(name);
+
+                    System.out.print("생년월일을 입력하세요 (생년월일 6자리 yymmdd): ");
+                    String birth = scanner.nextLine();
+                    if (!birth.matches("\\d{6}")) {
+                        System.out.println("⚠️ 생년월일은 6자리 숫자로 입력해주세요.");
+                        continue;
+                    }
+
+                    System.out.print("이메일을 입력하세요: ");
+                    String email = scanner.nextLine();
+
+                    System.out.print("성별을 입력하세요 (남성/여성) : ");
+                    String genderInput = scanner.nextLine();
+                    Gender gender;
+                    try {
+                        gender = Gender.fromDisplayGender(genderInput);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("⚠️ 성별은 '남성' 또는 '여성'만 입력 가능합니다.");
+                        continue;
+                    }
+
+                    Long createdId = memberController.createMember(name, birth, email, gender);
                     if (createdId != null) {
                         System.out.println("✅ 회원 등록 완료 (ID: " + createdId + ")");
                     } else {

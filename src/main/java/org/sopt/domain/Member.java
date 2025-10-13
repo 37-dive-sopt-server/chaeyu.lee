@@ -1,13 +1,21 @@
 package org.sopt.domain;
 
+import org.sopt.domain.enums.Gender;
+
 public class Member {
 
     private Long id;
     private String name;
+    private String email;
+    private String birth;
+    private Gender gender;
 
-    public Member(Long id, String name) {
+    public Member(Long id, String name, String email, String birth, Gender gender) {
         this.id = id;
         this.name = name;
+        this.email = email;
+        this.birth = birth;
+        this.gender = gender;
     }
 
     public Long getId() {
@@ -16,5 +24,17 @@ public class Member {
 
     public String getName() {
         return name;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public String getBirth(){
+        return birth;
+    }
+
+    public Gender getGender(){
+        return gender;
     }
 }

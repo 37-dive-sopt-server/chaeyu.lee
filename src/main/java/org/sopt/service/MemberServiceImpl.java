@@ -1,6 +1,7 @@
 package org.sopt.service;
 
 import org.sopt.domain.Member;
+import org.sopt.domain.enums.Gender;
 import org.sopt.repository.MemoryMemberRepository;
 
 import java.util.List;
@@ -11,9 +12,9 @@ public class MemberServiceImpl implements MemberService{
     private final MemoryMemberRepository memberRepository = new MemoryMemberRepository();
     private static long sequence = 1L;
 
-    public Long join(String name) {
+    public Long join(String name, String birth, String email, Gender gender) {
 
-        Member member = new Member(sequence++, name);
+        Member member = new Member(sequence++, name, birth, email, gender);
         memberRepository.save(member);
         return member.getId();
     }
