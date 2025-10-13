@@ -73,7 +73,10 @@ public class Main {
                         Long id = Long.parseLong(scanner.nextLine());
                         Optional<Member> foundMember = memberController.findMemberById(id);
                         if (foundMember.isPresent()) {
-                            System.out.println("✅ 조회된 회원: ID=" + foundMember.get().getId() + ", 이름=" + foundMember.get().getName());
+                            System.out.println("✅ 조회된 회원: ID=" + foundMember.get().getId() + ", 이름="
+                                    + foundMember.get().getName() + ", 생년월일=" + foundMember.get().getBirth()
+                                    + ", 이메일=" + foundMember.get().getEmail()
+                                    + ", 성별=" + foundMember.get().getGender());
                         } else {
                             System.out.println("⚠️ 해당 ID의 회원을 찾을 수 없습니다.");
                         }
