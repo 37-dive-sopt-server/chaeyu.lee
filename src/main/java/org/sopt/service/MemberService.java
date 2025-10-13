@@ -11,4 +11,5 @@ public interface MemberService {
     Long join(String name, String birth, String email, Gender gender);
     Optional<Member> findOne(Long memberId);
     List<Member> findAllMembers();
+    Boolean isDuplicatedEmail(String email);
 }

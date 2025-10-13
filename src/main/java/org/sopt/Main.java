@@ -14,8 +14,8 @@ public class Main {
     public static void main(String[] args) {
 
         MemoryMemberRepository memberRepository = new MemoryMemberRepository();
-        MemberServiceImpl memberService = new MemberServiceImpl();
-        MemberController memberController = new MemberController();
+        MemberServiceImpl memberService = new MemberServiceImpl(memberRepository);
+        MemberController memberController = new MemberController(memberService);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -47,9 +47,6 @@ public class Main {
                         continue;
                     }
 
-                    System.out.print("이메일을 입력하세요: ");
-                    String email = scanner.nextLine();
-
                     System.out.print("성별을 입력하세요 (남성/여성) : ");
                     String genderInput = scanner.nextLine();
                     Gender gender;
@@ -60,13 +57,22 @@ public class Main {
                         continue;
                     }
 
-                    Long createdId = memberController.createMember(name, birth, email, gender);
-                    if (createdId != null) {
+                    System.out.print("이메일을 입력하세요: ");
+                    String email = scanner.nextLine();
+
+                    if (memberController.isDuplicatedEmail(email)) {
+                        System.out.println("⚠️ 이미 등록된 이메일입니다. 다른 이메일을 입력해주세요.");
+                        continue;
+                    }
+
+                    try {
+                        Long createdId = memberController.createMember(name, birth, email, gender);
                         System.out.println("✅ 회원 등록 완료 (ID: " + createdId + ")");
-                    } else {
-                        System.out.println("❌ 회원 등록 실패");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("❌ 회원 등록 실패: " + e.getMessage());
                     }
                     break;
+
                 case "2":
                     System.out.print("조회할 회원 ID를 입력하세요: ");
                     try {
