@@ -30,6 +30,19 @@ public class MemberServiceImpl implements MemberService{
         return memberRepository.findByEmail(email).isPresent();
     }
 
+    public Boolean deleteMember(Long memberId) {
+        return memberRepository.findByIncludedDeleted(memberId).map(
+                member -> {
+                    if (member.isDeleted()){
+                        return false;
+                    }
+
+                    member.delete();
+                    return true;
+                }
+        ).orElse(false);
+    }
+
     public Optional<Member> findOne(Long memberId) {
         return memberRepository.findById(memberId);
     }

@@ -31,4 +31,8 @@ public class MemberController {
     public boolean isDuplicatedEmail(String email) {
         return memberService.isDuplicatedEmail(email);
     }
+
+    public boolean deleteMember(Long id){
+        return memberService.deleteMember(id);
+    }
 }

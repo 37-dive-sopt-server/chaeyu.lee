@@ -9,6 +9,7 @@ public class Member {
     private String email;
     private String birth;
     private Gender gender;
+    private boolean isDeleted = false;
 
     public Member(Long id, String name, String birth, String email, Gender gender) {
         this.id = id;
@@ -36,5 +37,13 @@ public class Member {
 
     public Gender getGender(){
         return gender;
+    }
+
+    public void delete(){
+        this.isDeleted = true;
+    }
+
+    public boolean isDeleted(){
+        return isDeleted;
     }
 }
