@@ -40,35 +40,16 @@ public class Main {
                 case "1":
                     System.out.print("등록할 회원 이름을 입력하세요: ");
                     String name = scanner.nextLine();
-                    if (name.trim().isEmpty()) {
-                        System.out.println(ErrorMsg.NAME_BLANK.getMessage());
-                        continue;
-                    }
+
 
                     System.out.print("생년월일을 입력하세요 (생년월일 6자리 yymmdd): ");
                     String birth = scanner.nextLine();
-                    if (!birth.matches("\\d{6}")) {
-                        System.out.println(ErrorMsg.INVALID_BIRTH_FORMAT.getMessage());
-                        continue;
-                    }
 
                     System.out.print("성별을 입력하세요 (남성/여성) : ");
-                    String genderInput = scanner.nextLine();
-                    Gender gender;
-                    try {
-                        gender = Gender.fromDisplayGender(genderInput);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(ErrorMsg.INVALID_GENDER.getMessage());
-                        continue;
-                    }
+                    String gender = scanner.nextLine();
 
                     System.out.print("이메일을 입력하세요: ");
                     String email = scanner.nextLine();
-
-                    if (memberController.isDuplicatedEmail(email)) {
-                        System.out.println(ErrorMsg.DUPLICATE_EMAIL.getMessage());
-                        continue;
-                    }
 
                     try {
                         MemberCreateRequestDto memberCreateRequestDto = new MemberCreateRequestDto(name, birth, email, gender);
