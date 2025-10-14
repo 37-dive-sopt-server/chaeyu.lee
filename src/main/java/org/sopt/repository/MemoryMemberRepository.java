@@ -49,5 +49,5 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
-    public void finalChange() {}
+    public void close() {}
 }

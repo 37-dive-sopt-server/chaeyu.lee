@@ -47,7 +47,7 @@ public class FileMemberRepository implements MemberRepository{
             List<Member> members = gson.fromJson(reader, memberList);
             return members !=null ? members : new ArrayList<>();
         } catch (IOException e) {
-            throw new IllegalArgumentException(ErrorMsg.FILE_INIT_FAILED.getMessage());
+            throw new FileOperationException(ErrorMsg.FILE_INIT_FAILED);
         }
     }
 
@@ -59,7 +59,7 @@ public class FileMemberRepository implements MemberRepository{
         return member;
     }
 
-    public void finalChange(){
+    public void close(){
         if(isChanged){
             saveMembersToFile();
             isChanged = false;

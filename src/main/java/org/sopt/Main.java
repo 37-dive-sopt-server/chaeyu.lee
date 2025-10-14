@@ -7,7 +7,6 @@ import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
 import org.sopt.repository.FileMemberRepository;
 import org.sopt.repository.MemberRepository;
-import org.sopt.repository.MemoryMemberRepository;
 import org.sopt.service.MemberService;
 import org.sopt.service.MemberServiceImpl;
 
@@ -107,7 +106,7 @@ public class Main {
                     break;
 
                 case "5":
-                    memberRepository.finalChange();
+                    memberRepository.close();
                     System.out.println("👋 서비스를 종료합니다. 안녕히 계세요!");
                     scanner.close();
                     return;
