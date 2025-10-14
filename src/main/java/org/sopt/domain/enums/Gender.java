@@ -1,5 +1,7 @@
 package org.sopt.domain.enums;
 
+import org.sopt.global.constant.ErrorMsg;
+
 public enum Gender {
     MALE("남성"),
     FEMALE("여성");
@@ -20,6 +22,6 @@ public enum Gender {
                 return gender;
             }
         }
-        throw new IllegalArgumentException("올바르지 않은 성별입니다: " + input);
+        throw new IllegalArgumentException(ErrorMsg.INVALID_GENDER.getMessage());
     }
 }

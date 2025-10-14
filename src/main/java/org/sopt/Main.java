@@ -3,6 +3,7 @@ package org.sopt;
 import org.sopt.controller.MemberController;
 import org.sopt.domain.Member;
 import org.sopt.domain.enums.Gender;
+import org.sopt.global.constant.ErrorMsg;
 import org.sopt.repository.MemoryMemberRepository;
 import org.sopt.service.MemberService;
 import org.sopt.service.MemberServiceImpl;
@@ -38,14 +39,14 @@ public class Main {
                     System.out.print("등록할 회원 이름을 입력하세요: ");
                     String name = scanner.nextLine();
                     if (name.trim().isEmpty()) {
-                        System.out.println("⚠️ 이름을 입력해주세요.");
+                        System.out.println(ErrorMsg.NAME_BLANK);
                         continue;
                     }
 
                     System.out.print("생년월일을 입력하세요 (생년월일 6자리 yymmdd): ");
                     String birth = scanner.nextLine();
                     if (!birth.matches("\\d{6}")) {
-                        System.out.println("⚠️ 생년월일은 6자리 숫자로 입력해주세요.");
+                        System.out.println(ErrorMsg.INVALID_BIRTH_FORMAT);
                         continue;
                     }
 
@@ -55,7 +56,7 @@ public class Main {
                     try {
                         gender = Gender.fromDisplayGender(genderInput);
                     } catch (IllegalArgumentException e) {
-                        System.out.println("⚠️ 성별은 '남성' 또는 '여성'만 입력 가능합니다.");
+                        System.out.println(ErrorMsg.INVALID_GENDER);
                         continue;
                     }
 
@@ -63,7 +64,7 @@ public class Main {
                     String email = scanner.nextLine();
 
                     if (memberController.isDuplicatedEmail(email)) {
-                        System.out.println("⚠️ 이미 등록된 이메일입니다. 다른 이메일을 입력해주세요.");
+                        System.out.println(ErrorMsg.DUPLICATE_EMAIL);
                         continue;
                     }
 
@@ -86,10 +87,10 @@ public class Main {
                                     + ", 이메일=" + foundMember.get().getEmail()
                                     + ", 성별=" + foundMember.get().getGender());
                         } else {
-                            System.out.println("⚠️ 해당 ID의 회원을 찾을 수 없습니다.");
+                            System.out.println(ErrorMsg.MEMBER_NOT_FOUND);
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("❌ 유효하지 않은 ID 형식입니다. 숫자를 입력해주세요.");
+                        System.out.println(ErrorMsg.INVALID_ID_FORMAT);
                     }
                     break;
                 case "3":
@@ -113,10 +114,10 @@ public class Main {
                         if (success) {
                             System.out.println("✅ 해당 ID의 회원을 삭제하였습니다.");
                         } else {
-                            System.out.println("⚠️ 해당 ID의 회원을 찾을 수 없습니다.");
+                            System.out.println(ErrorMsg.MEMBER_NOT_FOUND);
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("❌ 유효하지 않은 ID 형식입니다. 숫자를 입력해주세요.");
+                        System.out.println(ErrorMsg.INVALID_ID_FORMAT);
                     }
                     break;
 
