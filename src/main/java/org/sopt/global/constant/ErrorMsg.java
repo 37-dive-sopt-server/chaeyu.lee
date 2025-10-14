@@ -7,7 +7,7 @@ public enum ErrorMsg {
     DUPLICATE_EMAIL("⚠️ 이미 등록된 이메일입니다."),
     MEMBER_NOT_FOUND(" ⚠️ 해당 ID의 회원을 찾을 수 없습니다."),
     INVALID_ID_FORMAT(" ⚠️ 유효하지 않은 ID 형식입니다. 숫자를 입력해주세요."),
-    MEMBER_AGE_TOO_LOW(" ⚠️ 20세 미만의 회원은 가입이 불가능합니다.");
+    UNDER_20_CANNOT_JOIN(" ⚠️ 20세 미만의 회원은 가입이 불가능합니다.");
 
     private final String message;
 
