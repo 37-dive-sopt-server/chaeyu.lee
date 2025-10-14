@@ -40,8 +40,7 @@ public class Main {
                     System.out.print("등록할 회원 이름을 입력하세요: ");
                     String name = scanner.nextLine();
 
-
-                    System.out.print("생년월일을 입력하세요 (생년월일 6자리 yymmdd): ");
+                    System.out.print("생년월일을 입력하세요 (생년월일 8자리 yyyymmdd): ");
                     String birth = scanner.nextLine();
 
                     System.out.print("성별을 입력하세요 (남성/여성) : ");

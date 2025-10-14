@@ -43,7 +43,7 @@ public class MemberCreateRequestDto {
     }
 
     private void validateBirth(String birth){
-        if (!birth.matches("\\d{6}")) {
+        if (!birth.matches("\\d{8}")) {
             System.out.println(ErrorMsg.INVALID_BIRTH_FORMAT.getMessage());
         }
     }
@@ -51,5 +51,6 @@ public class MemberCreateRequestDto {
     private Gender validateGender(String gender){
         return Gender.fromDisplayGender(gender);
     }
+
 
 }
