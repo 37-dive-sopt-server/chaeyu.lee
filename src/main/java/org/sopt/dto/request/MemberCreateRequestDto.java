@@ -3,6 +3,11 @@ package org.sopt.dto.request;
 import org.sopt.domain.enums.Gender;
 import org.sopt.global.constant.ErrorMsg;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class MemberCreateRequestDto {
     private final String name;
     private final String birth;
@@ -13,6 +18,7 @@ public class MemberCreateRequestDto {
 
         validateName(name);
         validateBirth(birth);
+        validateAge(birth);
 
         this.name = name;
         this.birth = birth;
@@ -52,5 +58,18 @@ public class MemberCreateRequestDto {
         return Gender.fromDisplayGender(gender);
     }
 
+    private void validateAge(String birth){
+        try{
+            LocalDate birthDate = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyyMMdd"));
+            LocalDate currentDate = LocalDate.now();
 
+            int age = Period.between(birthDate, currentDate).getYears();
+
+            if (age<20){
+                throw new IllegalArgumentException(ErrorMsg.UNDER_20_CANNOT_JOIN.getMessage());
+            }
+        } catch (DateTimeParseException e){
+            throw new IllegalArgumentException(ErrorMsg.INVALID_BIRTH_FORMAT.getMessage());
+        }
+    }
 }
