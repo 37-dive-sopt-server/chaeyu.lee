@@ -2,6 +2,7 @@ package org.sopt.service;
 
 import org.sopt.domain.Member;
 import org.sopt.domain.enums.Gender;
+import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
 import org.sopt.repository.MemoryMemberRepository;
@@ -18,12 +19,12 @@ public class MemberServiceImpl implements MemberService{
         this.memberRepository = memberRepository;
     }
 
-    public Long join(String name, String birth, String email, Gender gender) {
-        if (isDuplicatedEmail(email)) {
+    public Long join(MemberCreateRequestDto memberCreateRequestDto) {
+        if (isDuplicatedEmail(memberCreateRequestDto.getEmail())) {
             throw new DuplicateEmailException(ErrorMsg.DUPLICATE_EMAIL);
         }
 
-        Member member = new Member(sequence++, name, birth, email, gender);
+        Member member = new Member(sequence++, memberCreateRequestDto.getName(), memberCreateRequestDto.getBirth(), memberCreateRequestDto.getEmail(), memberCreateRequestDto.getGender());
         memberRepository.save(member);
         return member.getId();
     }

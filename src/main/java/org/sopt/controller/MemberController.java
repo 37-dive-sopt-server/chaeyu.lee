@@ -2,6 +2,7 @@ package org.sopt.controller;
 
 import org.sopt.domain.Member;
 import org.sopt.domain.enums.Gender;
+import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.service.MemberService;
 
 import java.util.List;
@@ -15,9 +16,9 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    public Long createMember(String name, String birth, String email, Gender gender) {
+    public Long createMember(MemberCreateRequestDto memberCreateRequestDto) {
 
-        return memberService.join(name, birth, email, gender);
+        return memberService.join(memberCreateRequestDto);
     }
 
     public Optional<Member> findMemberById(Long id) {
