@@ -5,6 +5,8 @@ import org.sopt.domain.Member;
 import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
+import org.sopt.repository.FileMemberRepository;
+import org.sopt.repository.MemberRepository;
 import org.sopt.repository.MemoryMemberRepository;
 import org.sopt.service.MemberService;
 import org.sopt.service.MemberServiceImpl;
@@ -16,7 +18,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+        // MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+        MemberRepository memberRepository = new FileMemberRepository();
         MemberService memberService = new MemberServiceImpl(memberRepository);
         MemberController memberController = new MemberController(memberService);
 
