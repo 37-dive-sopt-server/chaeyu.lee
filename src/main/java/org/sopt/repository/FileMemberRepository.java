@@ -17,6 +17,7 @@ public class FileMemberRepository implements MemberRepository{
     private final String FILE_PATH = "members.json";
     private final Gson gson = new Gson();
     private List<Member> store;
+    private boolean isChanged = false;
 
     public FileMemberRepository(){
         try{
@@ -53,8 +54,20 @@ public class FileMemberRepository implements MemberRepository{
     @Override
     public Member save(Member member) {
         store.add(member);
-        saveMembersToFile();
+        // saveMembersToFile();
+        isChanged = true;
         return member;
+    }
+
+    public void finalChange(){
+        if(isChanged){
+            saveMembersToFile();
+            isChanged = false;
+        }
+    }
+
+    public void markChanged(){
+        this.isChanged = true;
     }
 
     @Override

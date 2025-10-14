@@ -12,4 +12,5 @@ public interface MemberRepository {
     Optional<Member> findByEmail(String email);
     Optional<Member> findByIncludedDeleted(Long id);
     Long findMaxId();
+    void finalChange();
 }

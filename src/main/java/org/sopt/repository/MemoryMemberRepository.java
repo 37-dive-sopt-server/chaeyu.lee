@@ -47,4 +47,7 @@ public class MemoryMemberRepository implements MemberRepository{
                 .max()
                 .orElse(0L);
     }
+
+    @Override
+    public void finalChange() {}
 }

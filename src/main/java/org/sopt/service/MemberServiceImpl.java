@@ -4,6 +4,7 @@ import org.sopt.domain.Member;
 import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
+import org.sopt.repository.FileMemberRepository;
 import org.sopt.repository.MemberRepository;
 
 import java.util.List;
@@ -41,6 +42,11 @@ public class MemberServiceImpl implements MemberService{
                     }
 
                     member.delete();
+
+                    if (memberRepository instanceof FileMemberRepository){
+                        ((FileMemberRepository) memberRepository).markChanged();
+                    }
+
                     return true;
                 }
         ).orElse(false);

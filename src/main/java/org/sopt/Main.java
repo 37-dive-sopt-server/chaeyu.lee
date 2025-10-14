@@ -107,6 +107,7 @@ public class Main {
                     break;
 
                 case "5":
+                    memberRepository.finalChange();
                     System.out.println("👋 서비스를 종료합니다. 안녕히 계세요!");
                     scanner.close();
                     return;
