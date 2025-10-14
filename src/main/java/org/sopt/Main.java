@@ -2,7 +2,6 @@ package org.sopt;
 
 import org.sopt.controller.MemberController;
 import org.sopt.domain.Member;
-import org.sopt.domain.enums.Gender;
 import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
