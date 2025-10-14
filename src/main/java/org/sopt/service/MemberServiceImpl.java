@@ -1,21 +1,20 @@
 package org.sopt.service;
 
 import org.sopt.domain.Member;
-import org.sopt.domain.enums.Gender;
 import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
-import org.sopt.repository.MemoryMemberRepository;
+import org.sopt.repository.MemberRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 public class MemberServiceImpl implements MemberService{
 
-    private final MemoryMemberRepository memberRepository;
+    private final MemberRepository memberRepository;
     private static long sequence = 1L;
 
-    public MemberServiceImpl(MemoryMemberRepository memberRepository) {
+    public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
