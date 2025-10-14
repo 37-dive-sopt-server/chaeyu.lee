@@ -2,6 +2,8 @@ package org.sopt.service;
 
 import org.sopt.domain.Member;
 import org.sopt.domain.enums.Gender;
+import org.sopt.global.constant.ErrorMsg;
+import org.sopt.global.exception.DuplicateEmailException;
 import org.sopt.repository.MemoryMemberRepository;
 
 import java.util.List;
@@ -18,7 +20,7 @@ public class MemberServiceImpl implements MemberService{
 
     public Long join(String name, String birth, String email, Gender gender) {
         if (isDuplicatedEmail(email)) {
-            throw new IllegalArgumentException("이미 등록된 이메일입니다.");
+            throw new DuplicateEmailException(ErrorMsg.DUPLICATE_EMAIL);
         }
 
         Member member = new Member(sequence++, name, birth, email, gender);
