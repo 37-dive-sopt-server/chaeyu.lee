@@ -3,7 +3,9 @@ package org.sopt;
 import org.sopt.controller.MemberController;
 import org.sopt.domain.Member;
 import org.sopt.domain.enums.Gender;
+import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.global.constant.ErrorMsg;
+import org.sopt.global.exception.DuplicateEmailException;
 import org.sopt.repository.MemoryMemberRepository;
 import org.sopt.service.MemberService;
 import org.sopt.service.MemberServiceImpl;
@@ -39,14 +41,14 @@ public class Main {
                     System.out.print("등록할 회원 이름을 입력하세요: ");
                     String name = scanner.nextLine();
                     if (name.trim().isEmpty()) {
-                        System.out.println(ErrorMsg.NAME_BLANK);
+                        System.out.println(ErrorMsg.NAME_BLANK.getMessage());
                         continue;
                     }
 
                     System.out.print("생년월일을 입력하세요 (생년월일 6자리 yymmdd): ");
                     String birth = scanner.nextLine();
                     if (!birth.matches("\\d{6}")) {
-                        System.out.println(ErrorMsg.INVALID_BIRTH_FORMAT);
+                        System.out.println(ErrorMsg.INVALID_BIRTH_FORMAT.getMessage());
                         continue;
                     }
 
@@ -56,7 +58,7 @@ public class Main {
                     try {
                         gender = Gender.fromDisplayGender(genderInput);
                     } catch (IllegalArgumentException e) {
-                        System.out.println(ErrorMsg.INVALID_GENDER);
+                        System.out.println(ErrorMsg.INVALID_GENDER.getMessage());
                         continue;
                     }
 
@@ -64,14 +66,15 @@ public class Main {
                     String email = scanner.nextLine();
 
                     if (memberController.isDuplicatedEmail(email)) {
-                        System.out.println(ErrorMsg.DUPLICATE_EMAIL);
+                        System.out.println(ErrorMsg.DUPLICATE_EMAIL.getMessage());
                         continue;
                     }
 
                     try {
-                        Long createdId = memberController.createMember(name, birth, email, gender);
+                        MemberCreateRequestDto memberCreateRequestDto = new MemberCreateRequestDto(name, birth, email, gender);
+                        Long createdId = memberController.createMember(memberCreateRequestDto);
                         System.out.println("✅ 회원 등록 완료 (ID: " + createdId + ")");
-                    } catch (IllegalArgumentException e) {
+                    } catch (IllegalArgumentException | DuplicateEmailException e) {
                         System.out.println("❌ 회원 등록 실패: " + e.getMessage());
                     }
                     break;
@@ -87,10 +90,10 @@ public class Main {
                                     + ", 이메일=" + foundMember.get().getEmail()
                                     + ", 성별=" + foundMember.get().getGender());
                         } else {
-                            System.out.println(ErrorMsg.MEMBER_NOT_FOUND);
+                            System.out.println(ErrorMsg.MEMBER_NOT_FOUND.getMessage());
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println(ErrorMsg.INVALID_ID_FORMAT);
+                        System.out.println(ErrorMsg.INVALID_ID_FORMAT.getMessage());
                     }
                     break;
                 case "3":
@@ -114,10 +117,10 @@ public class Main {
                         if (success) {
                             System.out.println("✅ 해당 ID의 회원을 삭제하였습니다.");
                         } else {
-                            System.out.println(ErrorMsg.MEMBER_NOT_FOUND);
+                            System.out.println(ErrorMsg.MEMBER_NOT_FOUND.getMessage());
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println(ErrorMsg.INVALID_ID_FORMAT);
+                        System.out.println(ErrorMsg.INVALID_ID_FORMAT.getMessage());
                     }
                     break;
 
