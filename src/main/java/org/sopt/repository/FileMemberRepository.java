@@ -86,4 +86,12 @@ public class FileMemberRepository implements MemberRepository{
                 .filter(member -> member.getId().equals(id))
                 .findFirst();
     }
+
+    @Override
+    public Long findMaxId() {
+        return store.stream()
+                .mapToLong(Member::getId)
+                .max()
+                .orElse(0L);
+    }
 }

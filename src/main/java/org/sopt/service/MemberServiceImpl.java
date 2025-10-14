@@ -12,10 +12,11 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
-    private static long sequence = 1L;
+    private static long sequence;
 
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
+        sequence = memberRepository.findMaxId()+1;
     }
 
     public Long join(MemberCreateRequestDto memberCreateRequestDto) {

@@ -40,4 +40,11 @@ public class MemoryMemberRepository implements MemberRepository{
     public Optional<Member> findByIncludedDeleted(Long id){
         return Optional.ofNullable(store.get(id));
     }
+
+    public Long findMaxId() {
+        return store.keySet().stream()
+                .mapToLong(Long::longValue)
+                .max()
+                .orElse(0L);
+    }
 }
