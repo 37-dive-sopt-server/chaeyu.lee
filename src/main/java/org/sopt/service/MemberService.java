@@ -14,4 +14,5 @@ public interface MemberService {
     List<Member> findAllMembers();
     Boolean isDuplicatedEmail(String email);
     Boolean deleteMember(Long memberId);
+    void close();
 }

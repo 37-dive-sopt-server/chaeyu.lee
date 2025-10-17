@@ -5,6 +5,7 @@ import org.sopt.domain.Member;
 import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
+import org.sopt.global.exception.FileOperationException;
 import org.sopt.repository.FileMemberRepository;
 import org.sopt.repository.MemberRepository;
 import org.sopt.service.MemberService;
@@ -57,6 +58,8 @@ public class Main {
                         System.out.println("✅ 회원 등록 완료 (ID: " + createdId + ")");
                     } catch (IllegalArgumentException | DuplicateEmailException e) {
                         System.out.println("❌ 회원 등록 실패: " + e.getMessage());
+                    }  catch (FileOperationException e) {
+                        System.out.println("🚨 회원 등록 실패: " + e.getMessage());
                     }
                     break;
 
@@ -106,7 +109,7 @@ public class Main {
                     break;
 
                 case "5":
-                    memberRepository.close();
+                    memberService.close();
                     System.out.println("👋 서비스를 종료합니다. 안녕히 계세요!");
                     scanner.close();
                     return;
