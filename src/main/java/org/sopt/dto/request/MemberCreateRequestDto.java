@@ -17,8 +17,7 @@ public class MemberCreateRequestDto {
     public MemberCreateRequestDto(String name, String birth, String email, String gender) {
 
         validateName(name);
-        validateBirth(birth);
-        validateAge(birth);
+        validateBrithAndAge(birth);
 
         this.name = name;
         this.birth = birth;
@@ -48,17 +47,15 @@ public class MemberCreateRequestDto {
         }
     }
 
-    private void validateBirth(String birth){
-        if (!birth.matches("\\d{8}")) {
-            System.out.println(ErrorMsg.INVALID_BIRTH_FORMAT.getMessage());
-        }
-    }
-
     private Gender validateGender(String gender){
         return Gender.fromDisplayGender(gender);
     }
 
-    private void validateAge(String birth){
+    private void validateBrithAndAge(String birth){
+        if (!birth.matches("\\d{8}")) {
+            throw new IllegalArgumentException(ErrorMsg.INVALID_BIRTH_FORMAT.getMessage());
+        }
+
         try{
             LocalDate birthDate = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyyMMdd"));
             LocalDate currentDate = LocalDate.now();
