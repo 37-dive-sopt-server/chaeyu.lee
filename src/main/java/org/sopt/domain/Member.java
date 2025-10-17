@@ -4,11 +4,11 @@ import org.sopt.domain.enums.Gender;
 
 public class Member {
 
-    private Long id;
-    private String name;
-    private String email;
-    private String birth;
-    private Gender gender;
+    private final Long id;
+    private final String name;
+    private final String email;
+    private final String birth;
+    private final Gender gender;
     private boolean isDeleted = false;
 
     public Member(Long id, String name, String birth, String email, Gender gender) {
