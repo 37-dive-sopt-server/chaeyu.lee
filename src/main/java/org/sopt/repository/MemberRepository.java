@@ -13,4 +13,5 @@ public interface MemberRepository {
     Optional<Member> findByIncludedDeleted(Long id);
     Long findMaxId();
     void close();
+    void syncUpdate(Member member);
 }

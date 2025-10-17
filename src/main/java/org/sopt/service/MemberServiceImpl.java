@@ -42,10 +42,7 @@ public class MemberServiceImpl implements MemberService{
                     }
 
                     member.delete();
-
-                    if (memberRepository instanceof FileMemberRepository){
-                        ((FileMemberRepository) memberRepository).markChanged();
-                    }
+                    memberRepository.syncUpdate(member);
 
                     return true;
                 }

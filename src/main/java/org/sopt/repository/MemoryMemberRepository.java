@@ -50,4 +50,7 @@ public class MemoryMemberRepository implements MemberRepository{
 
     @Override
     public void close() {}
+
+    @Override
+    public void syncUpdate(Member member) {}
 }

@@ -65,7 +65,8 @@ public class FileMemberRepository implements MemberRepository{
         }
     }
 
-    public void markChanged(){
+    @Override
+    public void syncUpdate(Member member) {
         this.isChanged = true;
     }
 
