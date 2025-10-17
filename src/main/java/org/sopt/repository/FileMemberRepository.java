@@ -54,7 +54,6 @@ public class FileMemberRepository implements MemberRepository{
     @Override
     public Member save(Member member) {
         store.add(member);
-        // saveMembersToFile();
         isChanged = true;
         return member;
     }
