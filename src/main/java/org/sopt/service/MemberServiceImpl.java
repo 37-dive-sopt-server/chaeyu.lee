@@ -3,7 +3,7 @@ package org.sopt.service;
 import org.sopt.domain.Member;
 import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.dto.response.MemberResponseDto;
-import org.sopt.global.exception.DuplicateEmailException;
+import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 import org.sopt.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService{
 
     public Long join(MemberCreateRequestDto memberCreateRequestDto) {
         if (isDuplicatedEmail(memberCreateRequestDto.getEmail())) {
-            throw new DuplicateEmailException(GlobalErrorCode.DUPLICATE_EMAIL);
+            throw new CustomException(GlobalErrorCode.DUPLICATE_EMAIL);
         }
 
         Member member = new Member(sequence++, memberCreateRequestDto.getName(), memberCreateRequestDto.getBirth(), memberCreateRequestDto.getEmail(), memberCreateRequestDto.getGender());
@@ -36,19 +36,16 @@ public class MemberServiceImpl implements MemberService{
         return memberRepository.findByEmail(email).isPresent();
     }
 
-    public Boolean deleteMember(Long memberId) {
-        return memberRepository.findByIncludedDeleted(memberId).map(
-                member -> {
-                    if (member.isDeleted()){
-                        return false;
-                    }
+    public void deleteMember(Long memberId) {
+        Member member = memberRepository.findByIncludedDeleted(memberId)
+                .orElseThrow(() -> new CustomException(GlobalErrorCode.MEMBER_NOT_FOUND));
 
-                    member.delete();
-                    memberRepository.syncUpdate(member);
+        if (member.isDeleted()){
+            throw new CustomException(GlobalErrorCode.ALREADY_DELETED_MEMBER);
+        }
 
-                    return true;
-                }
-        ).orElse(false);
+        member.delete();
+        memberRepository.syncUpdate(member);
     }
 
     @Override

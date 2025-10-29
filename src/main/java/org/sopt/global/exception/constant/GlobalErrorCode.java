@@ -6,6 +6,7 @@ public enum GlobalErrorCode implements ErrorCode{
     NAME_BLANK(HttpStatus.BAD_REQUEST.value(), "NAME_BLANK", "이름을 입력해주세요."),
     INVALID_GENDER(HttpStatus.BAD_REQUEST.value(), "INVALID_GENDER", "올바르지 않은 성별입니다. '남성' 또는 '여성'을 입력해주세요."),
     INVALID_BIRTH_FORMAT(HttpStatus.BAD_REQUEST.value(), "INVALID_BIRTH_FORMAT", "생년월일은 8자리 숫자로 입력해주세요."),
+    ALREADY_DELETED_MEMBER(HttpStatus.BAD_REQUEST.value(), "ALREADY_DELETED_MEMBER", "이미 삭제된 회원의 ID 입니다."),
     DUPLICATE_EMAIL(HttpStatus.CONFLICT.value(), "DUPLICATE_EMAIL", "이미 등록된 이메일입니다."),
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "MEMBER_NOT_FOUND", "해당 ID의 회원을 찾을 수 없습니다."),
     INVALID_ID_FORMAT(HttpStatus.BAD_REQUEST.value(), "INVALID_ID_FORMAT", "유효하지 않은 ID 형식입니다. 숫자를 입력해주세요."),

@@ -3,7 +3,7 @@ package org.sopt.repository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.sopt.domain.Member;
-import org.sopt.global.exception.FileOperationException;
+import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 
 import java.io.*;
@@ -31,7 +31,7 @@ public class FileMemberRepository implements MemberRepository{
         try (Writer writer = new FileWriter(FILE_PATH)) {
             gson.toJson(store, writer);
         } catch (IOException e) {
-            throw new FileOperationException(GlobalErrorCode.FILE_UPDATE_FAILED);
+            throw new CustomException(GlobalErrorCode.FILE_UPDATE_FAILED);
         }
     }
 
@@ -47,7 +47,7 @@ public class FileMemberRepository implements MemberRepository{
             List<Member> members = gson.fromJson(reader, memberList);
             return members !=null ? members : new ArrayList<>();
         } catch (IOException e) {
-            throw new FileOperationException(GlobalErrorCode.FILE_INIT_FAILED);
+            throw new CustomException(GlobalErrorCode.FILE_INIT_FAILED);
         }
     }
 

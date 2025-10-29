@@ -14,6 +14,6 @@ public interface MemberService {
     Optional<MemberResponseDto> findOne(Long memberId);
     List<MemberResponseDto> findAllMembers();
     Boolean isDuplicatedEmail(String email);
-    Boolean deleteMember(Long memberId);
+    void deleteMember(Long memberId);
     void close();
 }
