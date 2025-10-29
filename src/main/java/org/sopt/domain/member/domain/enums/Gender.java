@@ -1,5 +1,6 @@
 package org.sopt.domain.member.domain.enums;
 
+import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 
 public enum Gender {
@@ -22,6 +23,6 @@ public enum Gender {
                 return gender;
             }
         }
-        throw new IllegalArgumentException(GlobalErrorCode.INVALID_GENDER.getMsg());
+        throw new CustomException(GlobalErrorCode.INVALID_GENDER);
     }
 }

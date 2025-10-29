@@ -11,11 +11,11 @@ public class Member {
     private final Gender gender;
     private boolean isDeleted = false;
 
-    public Member(Long id, String name, String birth, String email, Gender gender) {
+    public Member(Long id, String name, String email, String birth, Gender gender) {
         this.id = id;
         this.name = name;
-        this.email = email;
         this.birth = birth;
+        this.email = email;
         this.gender = gender;
     }
 

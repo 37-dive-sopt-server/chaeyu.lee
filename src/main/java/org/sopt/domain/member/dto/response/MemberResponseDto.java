@@ -13,8 +13,8 @@ public class MemberResponseDto {
     public MemberResponseDto(Long id, String name, String birth, String email, Gender gender) {
         this.id = id;
         this.name = name;
-        this.birth = birth;
         this.email = email;
+        this.birth = birth;
         this.gender = gender;
     }
 
@@ -23,8 +23,8 @@ public class MemberResponseDto {
         return new MemberResponseDto(
                 member.getId(),
                 member.getName(),
-                member.getEmail(),
                 member.getBirth(),
+                member.getEmail(),
                 member.getGender());
     }
 
