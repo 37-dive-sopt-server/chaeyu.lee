@@ -5,18 +5,13 @@ import org.sopt.domain.enums.Gender;
 import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class MemberController {
-
-    @Autowired
     private final MemberService memberService;
 
     public MemberController(MemberService memberService) {
@@ -24,8 +19,7 @@ public class MemberController {
     }
 
     @PostMapping("/users")
-    public Long createMember(MemberCreateRequestDto memberCreateRequestDto) {
-
+    public Long createMember(@RequestBody MemberCreateRequestDto memberCreateRequestDto) {
         return memberService.join(memberCreateRequestDto);
     }
 
