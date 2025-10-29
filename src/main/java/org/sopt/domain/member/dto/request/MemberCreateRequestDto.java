@@ -1,12 +1,8 @@
 package org.sopt.domain.member.dto.request;
 
 import org.sopt.domain.member.domain.enums.Gender;
-import org.sopt.global.exception.constant.GlobalErrorCode;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import static org.sopt.global.validator.MemberValidator.*;
 
 public class MemberCreateRequestDto {
     private final String name;
@@ -14,7 +10,7 @@ public class MemberCreateRequestDto {
     private final String email;
     private final Gender gender;
 
-    public MemberCreateRequestDto(String name, String birth, String email, String gender) {
+    public MemberCreateRequestDto(String name, String email, String birth, String gender) {
 
         validateName(name);
         validateBrithAndAge(birth);
@@ -41,32 +37,4 @@ public class MemberCreateRequestDto {
         return gender;
     }
 
-    private void validateName(String name){
-        if (name.trim().isEmpty()) {
-            throw new IllegalArgumentException(GlobalErrorCode.NAME_BLANK.getMsg());
-        }
-    }
-
-    private Gender validateGender(String gender){
-        return Gender.fromDisplayGender(gender);
-    }
-
-    private void validateBrithAndAge(String birth){
-        if (!birth.matches("\\d{8}")) {
-            throw new IllegalArgumentException(GlobalErrorCode.INVALID_BIRTH_FORMAT.getMsg());
-        }
-
-        try{
-            LocalDate birthDate = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyyMMdd"));
-            LocalDate currentDate = LocalDate.now();
-
-            int age = Period.between(birthDate, currentDate).getYears();
-
-            if (age<20){
-                throw new IllegalArgumentException(GlobalErrorCode.UNDER_20_CANNOT_JOIN.getMsg());
-            }
-        } catch (DateTimeParseException e){
-            throw new IllegalArgumentException(GlobalErrorCode.INVALID_BIRTH_FORMAT.getMsg());
-        }
-    }
 }
