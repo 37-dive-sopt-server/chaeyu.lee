@@ -1,9 +1,15 @@
 package org.sopt.global.exception;
 
-import org.sopt.global.constant.ErrorMsg;
+import org.sopt.global.exception.constant.ErrorCode;
 
 public class DuplicateEmailException extends RuntimeException {
-        public DuplicateEmailException(ErrorMsg errorMsg) {
-            super(errorMsg.getMessage());
-        }
+    private final ErrorCode errorCode;
+    public DuplicateEmailException(ErrorCode errorCode) {
+        super(errorCode.getMsg());
+        this.errorCode = errorCode;
+    }
+
+    public ErrorCode getErrorCode() {
+        return errorCode;
+    }
 }
