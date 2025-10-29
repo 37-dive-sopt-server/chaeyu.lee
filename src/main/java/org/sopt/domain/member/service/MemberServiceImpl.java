@@ -9,7 +9,6 @@ import org.sopt.domain.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,9 +52,10 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.close();
     }
 
-    public Optional<MemberResponseDto> findOne(Long memberId) {
+    public MemberResponseDto findOne(Long memberId) {
         return memberRepository.findById(memberId)
-                .map(MemberResponseDto::from);
+                .map(MemberResponseDto::from)
+                .orElseThrow(() -> new CustomException(GlobalErrorCode.MEMBER_NOT_FOUND));
     }
 
     public List<MemberResponseDto> findAllMembers() {

@@ -2,7 +2,6 @@ package org.sopt.domain.member.controller;
 
 import org.sopt.domain.member.dto.request.MemberCreateRequestDto;
 import org.sopt.domain.member.dto.response.MemberResponseDto;
-import org.sopt.global.exception.constant.GlobalErrorCode;
 import org.sopt.global.response.BaseResponse;
 import org.sopt.domain.member.service.MemberService;
 import org.springframework.http.HttpStatus;
@@ -29,8 +28,7 @@ public class MemberController {
 
     @GetMapping("/{memberId}")
     public ResponseEntity<BaseResponse<MemberResponseDto>> findMemberById(@PathVariable Long memberId) {
-        MemberResponseDto member = memberService.findOne(memberId)
-                .orElseThrow(()-> new RuntimeException(GlobalErrorCode.MEMBER_NOT_FOUND.getMsg())) ;
+        MemberResponseDto member = memberService.findOne(memberId);
         return ResponseEntity.ok(BaseResponse.ok("회원 조회 성공", member));
     }
 
