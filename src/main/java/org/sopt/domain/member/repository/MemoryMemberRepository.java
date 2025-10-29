@@ -9,14 +9,12 @@ import java.util.stream.Collectors;
 @Repository
 public class MemoryMemberRepository implements MemberRepository{
 
-
     private static final Map<Long, Member> store = new HashMap<>();
 
 
     public Member save(Member member) {
         store.put(member.getId(), member);
         return member;
-
     }
 
 

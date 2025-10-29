@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import org.sopt.domain.member.domain.Member;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Repository
+@Primary
 public class FileMemberRepository implements MemberRepository{
     private final String FILE_PATH = "members.json";
     private final Gson gson = new Gson();

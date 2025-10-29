@@ -22,6 +22,7 @@ public class MemberController {
     @PostMapping()
     public ResponseEntity<BaseResponse<Long>> createMember(@RequestBody MemberCreateRequestDto memberCreateRequestDto) {
         Long id = memberService.join(memberCreateRequestDto);
+        memberService.close();
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(BaseResponse.create("회원 등록 성공", id));
     }
