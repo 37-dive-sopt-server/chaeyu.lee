@@ -1,6 +1,7 @@
 package org.sopt.repository;
 
 import org.sopt.domain.Member;
+import org.sopt.dto.response.MemberResponseDto;
 
 import java.util.List;
 import java.util.Optional;

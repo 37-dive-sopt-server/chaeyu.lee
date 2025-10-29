@@ -3,6 +3,7 @@ package org.sopt.controller;
 import org.sopt.domain.Member;
 import org.sopt.domain.enums.Gender;
 import org.sopt.dto.request.MemberCreateRequestDto;
+import org.sopt.dto.response.MemberResponseDto;
 import org.sopt.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +26,12 @@ public class MemberController {
     }
 
     @GetMapping()
-    public Optional<Member> findMemberById(Long id) {
+    public Optional<MemberResponseDto> findMemberById(Long id) {
         return memberService.findOne(id);
     }
 
     @GetMapping("/all")
-    public List<Member> getAllMembers() {
+    public List<MemberResponseDto> getAllMembers() {
         return memberService.findAllMembers();
     }
 

@@ -2,6 +2,7 @@ package org.sopt.service;
 
 import org.sopt.domain.Member;
 import org.sopt.dto.request.MemberCreateRequestDto;
+import org.sopt.dto.response.MemberResponseDto;
 import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
 import org.sopt.repository.MemberRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -54,11 +56,14 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.close();
     }
 
-    public Optional<Member> findOne(Long memberId) {
-        return memberRepository.findById(memberId);
+    public Optional<MemberResponseDto> findOne(Long memberId) {
+        return memberRepository.findById(memberId)
+                .map(MemberResponseDto::from);
     }
 
-    public List<Member> findAllMembers() {
-        return memberRepository.findAll();
+    public List<MemberResponseDto> findAllMembers() {
+        return memberRepository.findAll()
+                .stream().map(MemberResponseDto::from)
+                .collect(Collectors.toList());
     }
 }

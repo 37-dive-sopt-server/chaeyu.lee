@@ -1,6 +1,7 @@
 package org.sopt.repository;
 
 import org.sopt.domain.Member;
+import org.sopt.dto.response.MemberResponseDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
