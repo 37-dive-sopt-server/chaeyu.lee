@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
 
@@ -18,22 +19,22 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @PostMapping("/users")
+    @PostMapping()
     public Long createMember(@RequestBody MemberCreateRequestDto memberCreateRequestDto) {
         return memberService.join(memberCreateRequestDto);
     }
 
-    @GetMapping("/users")
+    @GetMapping()
     public Optional<Member> findMemberById(Long id) {
         return memberService.findOne(id);
     }
 
-    @GetMapping("/users/all")
+    @GetMapping("/all")
     public List<Member> getAllMembers() {
         return memberService.findAllMembers();
     }
 
-    @DeleteMapping("/users")
+    @DeleteMapping()
     public boolean deleteMember(Long id){
         return memberService.deleteMember(id);
     }
