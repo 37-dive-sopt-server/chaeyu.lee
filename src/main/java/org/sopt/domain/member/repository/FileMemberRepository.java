@@ -1,8 +1,8 @@
-package org.sopt.repository;
+package org.sopt.domain.member.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.sopt.domain.Member;
+import org.sopt.domain.member.domain.Member;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 

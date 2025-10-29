@@ -1,7 +1,7 @@
-package org.sopt.dto.response;
+package org.sopt.domain.member.dto.response;
 
-import org.sopt.domain.Member;
-import org.sopt.domain.enums.Gender;
+import org.sopt.domain.member.domain.Member;
+import org.sopt.domain.member.domain.enums.Gender;
 
 public class MemberResponseDto {
     private final Long id;

@@ -1,4 +1,4 @@
-package org.sopt.domain.enums;
+package org.sopt.domain.member.domain.enums;
 
 import org.sopt.global.exception.constant.GlobalErrorCode;
 

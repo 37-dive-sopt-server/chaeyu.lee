@@ -1,6 +1,6 @@
-package org.sopt.dto.request;
+package org.sopt.domain.member.dto.request;
 
-import org.sopt.domain.enums.Gender;
+import org.sopt.domain.member.domain.enums.Gender;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 
 import java.time.LocalDate;

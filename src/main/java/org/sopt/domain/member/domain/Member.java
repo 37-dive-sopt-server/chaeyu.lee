@@ -1,6 +1,6 @@
-package org.sopt.domain;
+package org.sopt.domain.member.domain;
 
-import org.sopt.domain.enums.Gender;
+import org.sopt.domain.member.domain.enums.Gender;
 
 public class Member {
 

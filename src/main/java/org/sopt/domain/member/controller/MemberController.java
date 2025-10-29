@@ -1,10 +1,10 @@
-package org.sopt.controller;
+package org.sopt.domain.member.controller;
 
-import org.sopt.dto.request.MemberCreateRequestDto;
-import org.sopt.dto.response.MemberResponseDto;
+import org.sopt.domain.member.dto.request.MemberCreateRequestDto;
+import org.sopt.domain.member.dto.response.MemberResponseDto;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 import org.sopt.global.response.BaseResponse;
-import org.sopt.service.MemberService;
+import org.sopt.domain.member.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

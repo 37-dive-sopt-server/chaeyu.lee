@@ -1,9 +1,7 @@
-package org.sopt.service;
+package org.sopt.domain.member.service;
 
-import org.sopt.domain.Member;
-import org.sopt.domain.enums.Gender;
-import org.sopt.dto.request.MemberCreateRequestDto;
-import org.sopt.dto.response.MemberResponseDto;
+import org.sopt.domain.member.dto.request.MemberCreateRequestDto;
+import org.sopt.domain.member.dto.response.MemberResponseDto;
 
 import java.util.List;
 import java.util.Optional;
