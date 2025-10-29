@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(DuplicateEmailException.class)
-    public ResponseEntity<BaseErrorResponse> handlerDuplicateEmail(DuplicateEmailException ex){
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<BaseErrorResponse> handlerCustomException(CustomException ex){
         ErrorCode errorCode = ex.getErrorCode();
         return ResponseEntity.status(errorCode.getHttpStatus())
                 .body(BaseErrorResponse.of(errorCode));
@@ -20,11 +20,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<BaseErrorResponse> handlerInternalServerError(Exception ex) {
         return ResponseEntity.status(GlobalErrorCode.INTERNAL_SERVER_ERROR.getHttpStatus())
                 .body(BaseErrorResponse.of(GlobalErrorCode.INTERNAL_SERVER_ERROR));
-    }
-
-    @ExceptionHandler(FileOperationException.class)
-    public ResponseEntity<BaseErrorResponse> handlerFileException(FileOperationException ex) {
-        return ResponseEntity.status(ex.getErrorCode().getHttpStatus())
-                .body(BaseErrorResponse.of(ex.getErrorCode()));
     }
 }
