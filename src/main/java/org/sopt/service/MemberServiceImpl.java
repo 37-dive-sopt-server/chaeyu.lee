@@ -6,19 +6,18 @@ import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
 import org.sopt.repository.FileMemberRepository;
 import org.sopt.repository.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MemberServiceImpl implements MemberService{
 
-    private final MemberRepository memberRepository;
+    @Autowired
+    private MemberRepository memberRepository;
     private long sequence;
-
-    public MemberServiceImpl(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-        sequence = memberRepository.findMaxId()+1;
-    }
 
     public Long join(MemberCreateRequestDto memberCreateRequestDto) {
         if (isDuplicatedEmail(memberCreateRequestDto.getEmail())) {

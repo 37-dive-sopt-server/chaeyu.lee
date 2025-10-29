@@ -1,10 +1,12 @@
 package org.sopt.repository;
 
 import org.sopt.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Repository
 public class MemoryMemberRepository implements MemberRepository{
 
 
