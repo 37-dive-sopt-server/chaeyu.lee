@@ -3,8 +3,8 @@ package org.sopt.service;
 import org.sopt.domain.Member;
 import org.sopt.dto.request.MemberCreateRequestDto;
 import org.sopt.dto.response.MemberResponseDto;
-import org.sopt.global.constant.ErrorMsg;
 import org.sopt.global.exception.DuplicateEmailException;
+import org.sopt.global.exception.constant.GlobalErrorCode;
 import org.sopt.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService{
 
     public Long join(MemberCreateRequestDto memberCreateRequestDto) {
         if (isDuplicatedEmail(memberCreateRequestDto.getEmail())) {
-            throw new DuplicateEmailException(ErrorMsg.DUPLICATE_EMAIL);
+            throw new DuplicateEmailException(GlobalErrorCode.DUPLICATE_EMAIL);
         }
 
         Member member = new Member(sequence++, memberCreateRequestDto.getName(), memberCreateRequestDto.getBirth(), memberCreateRequestDto.getEmail(), memberCreateRequestDto.getGender());

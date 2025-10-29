@@ -1,6 +1,6 @@
 package org.sopt.domain.enums;
 
-import org.sopt.global.constant.ErrorMsg;
+import org.sopt.global.exception.constant.GlobalErrorCode;
 
 public enum Gender {
     MALE("남성"),
@@ -22,6 +22,6 @@ public enum Gender {
                 return gender;
             }
         }
-        throw new IllegalArgumentException(ErrorMsg.INVALID_GENDER.getMessage());
+        throw new IllegalArgumentException(GlobalErrorCode.INVALID_GENDER.getMsg());
     }
 }

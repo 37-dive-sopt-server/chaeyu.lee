@@ -1,7 +1,7 @@
 package org.sopt.dto.request;
 
 import org.sopt.domain.enums.Gender;
-import org.sopt.global.constant.ErrorMsg;
+import org.sopt.global.exception.constant.GlobalErrorCode;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -43,7 +43,7 @@ public class MemberCreateRequestDto {
 
     private void validateName(String name){
         if (name.trim().isEmpty()) {
-            System.out.println(ErrorMsg.NAME_BLANK.getMessage());
+            throw new IllegalArgumentException(GlobalErrorCode.NAME_BLANK.getMsg());
         }
     }
 
@@ -53,7 +53,7 @@ public class MemberCreateRequestDto {
 
     private void validateBrithAndAge(String birth){
         if (!birth.matches("\\d{8}")) {
-            throw new IllegalArgumentException(ErrorMsg.INVALID_BIRTH_FORMAT.getMessage());
+            throw new IllegalArgumentException(GlobalErrorCode.INVALID_BIRTH_FORMAT.getMsg());
         }
 
         try{
@@ -63,10 +63,10 @@ public class MemberCreateRequestDto {
             int age = Period.between(birthDate, currentDate).getYears();
 
             if (age<20){
-                throw new IllegalArgumentException(ErrorMsg.UNDER_20_CANNOT_JOIN.getMessage());
+                throw new IllegalArgumentException(GlobalErrorCode.UNDER_20_CANNOT_JOIN.getMsg());
             }
         } catch (DateTimeParseException e){
-            throw new IllegalArgumentException(ErrorMsg.INVALID_BIRTH_FORMAT.getMessage());
+            throw new IllegalArgumentException(GlobalErrorCode.INVALID_BIRTH_FORMAT.getMsg());
         }
     }
 }
