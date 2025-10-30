@@ -22,24 +22,24 @@ public class MemberController {
     public BaseResponse<Long> createMember(@RequestBody MemberCreateRequestDto memberCreateRequestDto) {
         Long id = memberService.join(memberCreateRequestDto);
         memberService.close();
-        return BaseResponse.create(MemberSuccessCode.CREATE_MEMBER_SUCCESS.getMessage(), id);
+        return BaseResponse.create(MemberSuccessCode.CREATE_MEMBER_SUCCESS.getMsg(), id);
     }
 
     @GetMapping("/{memberId}")
     public BaseResponse<MemberResponseDto> findMemberById(@PathVariable Long memberId) {
         MemberResponseDto member = memberService.findOne(memberId);
-        return BaseResponse.ok(MemberSuccessCode.GET_MEMBER_SUCCESS.getMessage(), member);
+        return BaseResponse.ok(MemberSuccessCode.GET_MEMBER_SUCCESS.getMsg(), member);
     }
 
     @GetMapping("/all")
     public BaseResponse<List<MemberResponseDto>> getAllMembers() {
         List<MemberResponseDto> members = memberService.findAllMembers();
-        return BaseResponse.ok(MemberSuccessCode.GET_ALL_MEMBERS_SUCCESS.getMessage(), members);
+        return BaseResponse.ok(MemberSuccessCode.GET_ALL_MEMBERS_SUCCESS.getMsg(), members);
     }
 
     @DeleteMapping("/{memberId}")
     public BaseResponse<Boolean> deleteMember(@PathVariable Long memberId){
         memberService.deleteMember(memberId);
-        return BaseResponse.ok(MemberSuccessCode.DELETE_MEMBER_SUCCESS.getMessage(), true);
+        return BaseResponse.ok(MemberSuccessCode.DELETE_MEMBER_SUCCESS.getMsg(), true);
     }
 }

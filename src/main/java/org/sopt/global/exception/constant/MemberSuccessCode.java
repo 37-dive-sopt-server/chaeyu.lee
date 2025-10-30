@@ -1,24 +1,26 @@
 package org.sopt.global.exception.constant;
 
+import org.springframework.http.HttpStatus;
+
 public enum MemberSuccessCode implements SuccessCode{
-    CREATE_MEMBER_SUCCESS(201, "회원 등록 성공"),
-    GET_MEMBER_SUCCESS(200, "회원 조회 성공"),
-    GET_ALL_MEMBERS_SUCCESS(200, "전체 회원 조회 성공"),
-    DELETE_MEMBER_SUCCESS(200, "회원 삭제 성공");
+    CREATE_MEMBER_SUCCESS(HttpStatus.CREATED.value(), "회원 등록 성공"),
+    GET_MEMBER_SUCCESS(HttpStatus.OK.value(), "회원 조회 성공"),
+    GET_ALL_MEMBERS_SUCCESS(HttpStatus.OK.value(), "전체 회원 조회 성공"),
+    DELETE_MEMBER_SUCCESS(HttpStatus.OK.value(), "회원 삭제 성공");
 
     private final int status;
-    private final String message;
+    private final String msg;
 
-    MemberSuccessCode(int status, String message) {
+    MemberSuccessCode(int status, String msg) {
         this.status = status;
-        this.message = message;
+        this.msg = msg;
     }
 
     public int getStatus() {
         return status;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 }
