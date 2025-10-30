@@ -2,6 +2,7 @@ package org.sopt.domain.member.controller;
 
 import org.sopt.domain.member.dto.request.MemberCreateRequestDto;
 import org.sopt.domain.member.dto.response.MemberResponseDto;
+import org.sopt.global.exception.constant.MemberSuccessCode;
 import org.sopt.global.response.BaseResponse;
 import org.sopt.domain.member.service.MemberService;
 import org.springframework.web.bind.annotation.*;
@@ -21,24 +22,24 @@ public class MemberController {
     public BaseResponse<Long> createMember(@RequestBody MemberCreateRequestDto memberCreateRequestDto) {
         Long id = memberService.join(memberCreateRequestDto);
         memberService.close();
-        return BaseResponse.create("회원 등록 성공", id);
+        return BaseResponse.create(MemberSuccessCode.CREATE_MEMBER_SUCCESS.getMessage(), id);
     }
 
     @GetMapping("/{memberId}")
     public BaseResponse<MemberResponseDto> findMemberById(@PathVariable Long memberId) {
         MemberResponseDto member = memberService.findOne(memberId);
-        return BaseResponse.ok("회원 조회 성공", member);
+        return BaseResponse.ok(MemberSuccessCode.GET_MEMBER_SUCCESS.getMessage(), member);
     }
 
     @GetMapping("/all")
     public BaseResponse<List<MemberResponseDto>> getAllMembers() {
         List<MemberResponseDto> members = memberService.findAllMembers();
-        return BaseResponse.ok("전체 회원 조회 성공", members);
+        return BaseResponse.ok(MemberSuccessCode.GET_ALL_MEMBERS_SUCCESS.getMessage(), members);
     }
 
     @DeleteMapping("/{memberId}")
     public BaseResponse<Boolean> deleteMember(@PathVariable Long memberId){
         memberService.deleteMember(memberId);
-        return BaseResponse.ok("회원 삭제 성공", true);
+        return BaseResponse.ok(MemberSuccessCode.DELETE_MEMBER_SUCCESS.getMessage(), true);
     }
 }
