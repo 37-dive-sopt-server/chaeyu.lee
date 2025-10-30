@@ -24,8 +24,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     public Long join(MemberCreateRequestDto memberCreateRequestDto) {
-        MemberValidator.validateName(memberCreateRequestDto.getName());
-        MemberValidator.validateBrithAndAge(memberCreateRequestDto.getBirth());
+        MemberValidator.validateBrith(memberCreateRequestDto.getBirth());
 
         if (isDuplicatedEmail(memberCreateRequestDto.getEmail())) {
             throw new CustomException(GlobalErrorCode.DUPLICATE_EMAIL);
@@ -34,7 +33,7 @@ public class MemberServiceImpl implements MemberService{
         Gender gender = MemberValidator.validateGender(memberCreateRequestDto.getGender());
 
 
-        Member member = new Member(sequence++, memberCreateRequestDto.getName(), memberCreateRequestDto.getBirth(), memberCreateRequestDto.getEmail(), gender);
+        Member member = new Member(sequence++, memberCreateRequestDto.getName(), memberCreateRequestDto.getEmail(), memberCreateRequestDto.getBirth(), gender);
         memberRepository.save(member);
         return member.getId();
     }
