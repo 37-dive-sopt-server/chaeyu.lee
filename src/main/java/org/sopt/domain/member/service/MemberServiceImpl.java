@@ -1,11 +1,13 @@
 package org.sopt.domain.member.service;
 
 import org.sopt.domain.member.domain.Member;
+import org.sopt.domain.member.domain.enums.Gender;
 import org.sopt.domain.member.dto.request.MemberCreateRequestDto;
 import org.sopt.domain.member.dto.response.MemberResponseDto;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 import org.sopt.domain.member.repository.MemberRepository;
+import org.sopt.global.validator.MemberValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +24,17 @@ public class MemberServiceImpl implements MemberService{
     }
 
     public Long join(MemberCreateRequestDto memberCreateRequestDto) {
+        MemberValidator.validateName(memberCreateRequestDto.getName());
+        MemberValidator.validateBrithAndAge(memberCreateRequestDto.getBirth());
+
         if (isDuplicatedEmail(memberCreateRequestDto.getEmail())) {
             throw new CustomException(GlobalErrorCode.DUPLICATE_EMAIL);
         }
 
-        Member member = new Member(sequence++, memberCreateRequestDto.getName(), memberCreateRequestDto.getBirth(), memberCreateRequestDto.getEmail(), memberCreateRequestDto.getGender());
+        Gender gender = MemberValidator.validateGender(memberCreateRequestDto.getGender());
+
+
+        Member member = new Member(sequence++, memberCreateRequestDto.getName(), memberCreateRequestDto.getBirth(), memberCreateRequestDto.getEmail(), gender);
         memberRepository.save(member);
         return member.getId();
     }

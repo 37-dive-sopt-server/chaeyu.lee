@@ -8,18 +8,15 @@ public class MemberCreateRequestDto {
     private final String name;
     private final String birth;
     private final String email;
-    private final Gender gender;
+    private final String  gender;
 
-    public MemberCreateRequestDto(String name, String email, String birth, String gender) {
-
-        validateName(name);
-        validateBrithAndAge(birth);
-
+    public MemberCreateRequestDto(String name, String birth, String email, String gender) {
         this.name = name;
         this.birth = birth;
         this.email = email;
-        this.gender = validateGender(gender);
+        this.gender = gender;
     }
+
 
     public String getName() {
         return name;
@@ -33,7 +30,7 @@ public class MemberCreateRequestDto {
         return email;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 

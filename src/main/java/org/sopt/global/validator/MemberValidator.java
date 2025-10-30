@@ -1,6 +1,7 @@
 package org.sopt.global.validator;
 
 import org.sopt.domain.member.domain.enums.Gender;
+import org.sopt.domain.member.dto.request.MemberCreateRequestDto;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 
