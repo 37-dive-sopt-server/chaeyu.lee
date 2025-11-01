@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private long sequence;
 
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.sequence =memberRepository.findMaxId()+1;
+        this.sequence = memberRepository.findMaxId() + 1;
     }
 
     public Long join(MemberCreateRequestDto memberCreateRequestDto) {
@@ -31,7 +31,6 @@ public class MemberServiceImpl implements MemberService{
         }
 
         Gender gender = MemberValidator.validateGender(memberCreateRequestDto.getGender());
-
 
         Member member = new Member(sequence++, memberCreateRequestDto.getName(), memberCreateRequestDto.getEmail(), memberCreateRequestDto.getBirth(), gender);
         memberRepository.save(member);
@@ -48,7 +47,7 @@ public class MemberServiceImpl implements MemberService{
         Member member = memberRepository.findByIncludedDeleted(memberId)
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.MEMBER_NOT_FOUND));
 
-        if (member.isDeleted()){
+        if (member.isDeleted()) {
             throw new CustomException(GlobalErrorCode.ALREADY_DELETED_MEMBER);
         }
 
