@@ -21,7 +21,6 @@ public class MemberController {
     @PostMapping()
     public BaseResponse<Long> createMember(@RequestBody MemberCreateRequestDto memberCreateRequestDto) {
         Long id = memberService.join(memberCreateRequestDto);
-        memberService.close();
         return BaseResponse.create(MemberSuccessCode.CREATE_MEMBER_SUCCESS.getMsg(), id);
     }
 
