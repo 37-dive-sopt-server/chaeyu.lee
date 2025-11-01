@@ -10,7 +10,7 @@ public class MemberValidator {
         return Gender.fromDisplayGender(gender);
     }
 
-    public static void validateBrith(String birth){
+    public static void validateBirth(String birth){
         if (birth == null || birth.isBlank() || !birth.matches("\\d{8}")) {
             throw new CustomException(GlobalErrorCode.INVALID_BIRTH_FORMAT);
         }
