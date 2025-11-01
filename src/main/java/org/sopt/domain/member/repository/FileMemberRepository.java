@@ -1,10 +1,12 @@
-package org.sopt.repository;
+package org.sopt.domain.member.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.sopt.domain.Member;
-import org.sopt.global.constant.ErrorMsg;
-import org.sopt.global.exception.FileOperationException;
+import org.sopt.domain.member.domain.Member;
+import org.sopt.global.exception.CustomException;
+import org.sopt.global.exception.constant.GlobalErrorCode;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Repository
+@Primary
 public class FileMemberRepository implements MemberRepository{
     private final String FILE_PATH = "members.json";
     private final Gson gson = new Gson();
@@ -31,7 +35,7 @@ public class FileMemberRepository implements MemberRepository{
         try (Writer writer = new FileWriter(FILE_PATH)) {
             gson.toJson(store, writer);
         } catch (IOException e) {
-            throw new FileOperationException(ErrorMsg.FILE_UPDATE_FAILED);
+            throw new CustomException(GlobalErrorCode.FILE_UPDATE_FAILED);
         }
     }
 
@@ -47,7 +51,7 @@ public class FileMemberRepository implements MemberRepository{
             List<Member> members = gson.fromJson(reader, memberList);
             return members !=null ? members : new ArrayList<>();
         } catch (IOException e) {
-            throw new FileOperationException(ErrorMsg.FILE_INIT_FAILED);
+            throw new CustomException(GlobalErrorCode.FILE_INIT_FAILED);
         }
     }
 

@@ -1,12 +1,13 @@
-package org.sopt.repository;
+package org.sopt.domain.member.repository;
 
-import org.sopt.domain.Member;
+import org.sopt.domain.member.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Repository
 public class MemoryMemberRepository implements MemberRepository{
-
 
     private static final Map<Long, Member> store = new HashMap<>();
 
@@ -14,7 +15,6 @@ public class MemoryMemberRepository implements MemberRepository{
     public Member save(Member member) {
         store.put(member.getId(), member);
         return member;
-
     }
 
 
