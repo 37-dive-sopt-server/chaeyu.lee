@@ -1,6 +1,7 @@
 package org.sopt.domain.member.domain;
 
 import jakarta.persistence.*;
+import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.member.domain.enums.Gender;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;

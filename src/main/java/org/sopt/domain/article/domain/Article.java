@@ -1,9 +1,10 @@
-package org.sopt.domain.member.domain;
+package org.sopt.domain.article.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.sopt.domain.member.domain.Member;
 
 import java.time.LocalDateTime;
 
