@@ -1,8 +1,10 @@
 package org.sopt.domain.member.domain.enums;
 
+import lombok.Getter;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 
+@Getter
 public enum Gender {
     MALE("남성"),
     FEMALE("여성");
@@ -11,10 +13,6 @@ public enum Gender {
 
     Gender(String gender) {
         this.gender = gender;
-    }
-
-    public String getGender() {
-        return gender;
     }
 
     public static Gender fromDisplayGender(String input) {

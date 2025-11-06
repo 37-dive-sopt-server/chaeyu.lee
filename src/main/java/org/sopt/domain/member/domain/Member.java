@@ -24,14 +24,10 @@ public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Getter
     private String name;
-    @Getter
     private String email;
-    @Getter
     private String birth;
 
-    @Getter
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
@@ -40,7 +36,7 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();
 
-    public Member(String name, String email, String birth, Gender gender) {
+    private Member(String name, String email, String birth, Gender gender) {
         validateName(name);
         validateAge(birth);
 
@@ -48,6 +44,10 @@ public class Member extends BaseTimeEntity {
         this.birth = birth;
         this.email = email;
         this.gender = gender;
+    }
+
+    public static Member create(String name, String email, String birth, Gender gender) {
+        return new Member(name, email, birth, gender);
     }
 
     private static void validateName(String name) {
