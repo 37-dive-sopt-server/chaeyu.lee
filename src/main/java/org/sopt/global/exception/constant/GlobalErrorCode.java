@@ -14,6 +14,9 @@ public enum GlobalErrorCode implements ErrorCode {
     INVALID_ID_FORMAT(HttpStatus.BAD_REQUEST.value(), "INVALID_ID_FORMAT", "유효하지 않은 ID 형식입니다. 숫자를 입력해주세요."),
     UNDER_20_CANNOT_JOIN(HttpStatus.FORBIDDEN.value(), "UNDER_20_CANNOT_JOIN", "20세 미만의 회원은 가입이 불가능합니다."),
 
+    // Article
+    ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "MEMBER_NOT_FOUND", "해당 ID의 아티클을 찾을 수 없습니다."),
+
     // Global
     FILE_INIT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR.value(), "FILE_INIT_FAILED", "파일 초기화를 실패했습니다."),
     FILE_UPDATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR.value(), "FILE_UPDATE_FAILED", "데이터 파일 저장에 실패하였습니다."),
