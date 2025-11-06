@@ -1,5 +1,6 @@
 package org.sopt.domain.member.domain;
 
+import jakarta.persistence.*;
 import org.sopt.domain.member.domain.enums.Gender;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
@@ -7,28 +8,40 @@ import org.sopt.global.exception.constant.GlobalErrorCode;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class Member {
 
-    private final Long id;
-    private final String name;
-    private final String email;
-    private final String birth;
-    private final Gender gender;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String email;
+    private String birth;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private boolean isDeleted = false;
 
-    public Member(Long id, String name, String email, String birth, Gender gender) {
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Article> articles = new ArrayList<>();
+
+    public Member(String name, String email, String birth, Gender gender) {
         validateName(name);
         validateAge(birth);
 
-        this.id = id;
         this.name = name;
         this.birth = birth;
         this.email = email;
         this.gender = gender;
     }
 
-    private static void validateName(String name){
+    public Member() {
+
+    }
+
+    private static void validateName(String name) {
         if (name.trim().isEmpty()) {
             throw new CustomException(GlobalErrorCode.NAME_BLANK);
         }
@@ -55,23 +68,23 @@ public class Member {
         return name;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
-    public String getBirth(){
+    public String getBirth() {
         return birth;
     }
 
-    public Gender getGender(){
+    public Gender getGender() {
         return gender;
     }
 
-    public void delete(){
+    public void delete() {
         this.isDeleted = true;
     }
 
-    public boolean isDeleted(){
+    public boolean isDeleted() {
         return isDeleted;
     }
 }
