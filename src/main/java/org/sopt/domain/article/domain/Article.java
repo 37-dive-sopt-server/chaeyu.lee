@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.sopt.domain.article.domain.enums.Tag;
 import org.sopt.domain.member.domain.Member;
-
-import java.time.LocalDateTime;
+import org.sopt.global.entity.BaseTimeEntity;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Article {
+public class Article extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,18 +20,22 @@ public class Article {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String tag;
-
-    private LocalDateTime publishedAt;
+    @Enumerated(EnumType.STRING)
+    private Tag tag;
 
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    public Article(Member member, String tag, String title, String content) {
+    public Article(Member member, Tag tag, String title, String content) {
         this.member = member;
-        this.publishedAt = LocalDateTime.now();
         this.tag = tag;
         this.title = title;
         this.content = content;
+    }
+
+    public static Article create(Member author, Tag tag, String title, String content) {
+        return new Article(author, tag, title, content);
     }
 }
