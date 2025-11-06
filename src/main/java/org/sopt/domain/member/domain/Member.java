@@ -1,9 +1,12 @@
 package org.sopt.domain.member.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.member.domain.enums.Gender;
+import org.sopt.global.entity.BaseTimeEntity;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 
@@ -15,7 +18,8 @@ import java.util.List;
 
 @Entity
 @Getter
-public class Member {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +42,6 @@ public class Member {
         this.birth = birth;
         this.email = email;
         this.gender = gender;
-    }
-
-    public Member() {
-
     }
 
     private static void validateName(String name) {
