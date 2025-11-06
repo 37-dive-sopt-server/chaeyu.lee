@@ -29,7 +29,7 @@ public class Article extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    public Article(Member member, Tag tag, String title, String content) {
+    private Article(Member member, Tag tag, String title, String content) {
         this.member = member;
         this.tag = tag;
         this.title = title;
