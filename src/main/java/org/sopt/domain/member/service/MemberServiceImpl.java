@@ -16,11 +16,9 @@ import java.util.stream.Collectors;
 @Service
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
-    private long sequence;
 
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.sequence = memberRepository.findMaxId() + 1;
     }
 
     public Long join(MemberCreateRequestDto memberCreateRequestDto) {
@@ -32,9 +30,8 @@ public class MemberServiceImpl implements MemberService {
 
         Gender gender = MemberValidator.validateGender(memberCreateRequestDto.getGender());
 
-        Member member = new Member(sequence++, memberCreateRequestDto.getName(), memberCreateRequestDto.getEmail(), memberCreateRequestDto.getBirth(), gender);
+        Member member = new Member(memberCreateRequestDto.getName(), memberCreateRequestDto.getEmail(), memberCreateRequestDto.getBirth(), gender);
         memberRepository.save(member);
-        close();
 
         return member.getId();
     }
@@ -52,12 +49,6 @@ public class MemberServiceImpl implements MemberService {
         }
 
         member.delete();
-        memberRepository.syncUpdate(member);
-    }
-
-    @Override
-    public void close() {
-        memberRepository.close();
     }
 
     public MemberResponseDto findOne(Long memberId) {
