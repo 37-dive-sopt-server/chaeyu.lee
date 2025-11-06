@@ -5,7 +5,6 @@ import org.sopt.domain.member.domain.enums.Gender;
 
 public record MemberResponseDto(Long id, String name, String birth, String email, Gender gender) {
 
-
     public static MemberResponseDto from(Member member) {
         return new MemberResponseDto(
                 member.getId(),

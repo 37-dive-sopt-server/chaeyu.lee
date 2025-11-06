@@ -24,11 +24,17 @@ public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Getter
     private String name;
+    @Getter
     private String email;
+    @Getter
     private String birth;
+
+    @Getter
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
     private boolean isDeleted = false;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
