@@ -1,5 +1,6 @@
 package org.sopt.domain.member.controller;
 
+import jakarta.validation.Valid;
 import org.sopt.domain.member.dto.request.MemberCreateRequestDto;
 import org.sopt.domain.member.dto.response.MemberResponseDto;
 import org.sopt.global.exception.constant.MemberSuccessCode;
@@ -19,7 +20,7 @@ public class MemberController {
     }
 
     @PostMapping()
-    public BaseResponse<Long> createMember(@RequestBody MemberCreateRequestDto memberCreateRequestDto) {
+    public BaseResponse<Long> createMember(@Valid @RequestBody MemberCreateRequestDto memberCreateRequestDto) {
         Long id = memberService.join(memberCreateRequestDto);
         return BaseResponse.create(MemberSuccessCode.CREATE_MEMBER_SUCCESS.getMsg(), id);
     }
