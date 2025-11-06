@@ -1,6 +1,7 @@
 package org.sopt.domain.member.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.member.domain.enums.Gender;
 import org.sopt.global.exception.CustomException;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 public class Member {
 
     @Id
@@ -58,27 +60,6 @@ public class Member {
         } catch (Exception e) {
             throw new CustomException(GlobalErrorCode.INVALID_BIRTH_FORMAT);
         }
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getBirth() {
-        return birth;
-    }
-
-    public Gender getGender() {
-        return gender;
     }
 
     public void delete() {
