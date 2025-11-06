@@ -23,4 +23,12 @@ public class ArticleController {
         return BaseResponse.create(ArticleSuccessCode.CREATE_ARTICLE_SUCCESS.getMsg(), articleId);
     }
 
+    @GetMapping("/{articleId}")
+    public BaseResponse getArticle(
+            @PathVariable Long articleId
+    ) {
+        ArticleResponseDto response = articleService.findOne(articleId);
+
+        return BaseResponse.ok(ArticleSuccessCode.GET_ARTICLE_SUCCESS.getMsg(), response);
+    }
 }

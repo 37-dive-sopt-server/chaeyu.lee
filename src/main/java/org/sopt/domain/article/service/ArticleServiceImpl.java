@@ -38,5 +38,11 @@ public class ArticleServiceImpl implements ArticleService {
         return article.getId();
     }
 
+    @Override
+    public ArticleResponseDto findOne(Long articleId) {
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new CustomException(GlobalErrorCode.ARTICLE_NOT_FOUND));
 
+        return ArticleResponseDto.fromEntity(article);
+    }
 }
