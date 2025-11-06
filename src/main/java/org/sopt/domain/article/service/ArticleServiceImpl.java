@@ -12,7 +12,10 @@ import org.sopt.global.exception.constant.GlobalErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
@@ -44,5 +47,12 @@ public class ArticleServiceImpl implements ArticleService {
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.ARTICLE_NOT_FOUND));
 
         return ArticleResponseDto.fromEntity(article);
+    }
+
+    @Override
+    public List<ArticleResponseDto> findAllArticles() {
+        return articleRepository.findAllWithMember().stream()
+                .map(ArticleResponseDto::fromEntity)
+                .toList();
     }
 }

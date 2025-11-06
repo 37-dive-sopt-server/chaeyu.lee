@@ -9,6 +9,8 @@ import org.sopt.global.exception.constant.ArticleSuccessCode;
 import org.sopt.global.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/articles")
@@ -31,4 +33,12 @@ public class ArticleController {
 
         return BaseResponse.ok(ArticleSuccessCode.GET_ARTICLE_SUCCESS.getMsg(), response);
     }
+
+    @GetMapping
+    public BaseResponse<List<ArticleResponseDto>> getAllArticles() {
+        List<ArticleResponseDto> response = articleService.findAllArticles();
+        return BaseResponse.ok(ArticleSuccessCode.GET_ALL_ARTICLES_SUCCESS.getMsg(), response);
+    }
 }
+
+
