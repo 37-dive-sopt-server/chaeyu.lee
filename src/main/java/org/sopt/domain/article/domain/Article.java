@@ -23,6 +23,7 @@ public class Article extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Tag tag;
 
+    @Column(unique = true, nullable = false)
     private String title;
 
     @Column(columnDefinition = "TEXT")

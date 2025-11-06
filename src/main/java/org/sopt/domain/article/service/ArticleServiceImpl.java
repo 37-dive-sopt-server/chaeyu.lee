@@ -29,6 +29,10 @@ public class ArticleServiceImpl implements ArticleService {
         Member member = memberRepository.findById(request.memberId())
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.MEMBER_NOT_FOUND));
 
+        if (articleRepository.findByTitle(request.title()).isPresent()) {
+            throw new CustomException(GlobalErrorCode.DUPLICATE_ARTICLE_TITLE);
+        }
+
         Article article = Article.create(
                 member,
                 request.tag(),
