@@ -1,34 +1,56 @@
 package org.sopt.domain.member.domain;
 
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.member.domain.enums.Gender;
+import org.sopt.global.entity.BaseTimeEntity;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Member {
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Member extends BaseTimeEntity {
 
-    private final Long id;
-    private final String name;
-    private final String email;
-    private final String birth;
-    private final Gender gender;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String email;
+    private String birth;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     private boolean isDeleted = false;
 
-    public Member(Long id, String name, String email, String birth, Gender gender) {
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Article> articles = new ArrayList<>();
+
+    private Member(String name, String email, String birth, Gender gender) {
         validateName(name);
         validateAge(birth);
 
-        this.id = id;
         this.name = name;
         this.birth = birth;
         this.email = email;
         this.gender = gender;
     }
 
-    private static void validateName(String name){
+    public static Member create(String name, String email, String birth, Gender gender) {
+        return new Member(name, email, birth, gender);
+    }
+
+    private static void validateName(String name) {
         if (name.trim().isEmpty()) {
             throw new CustomException(GlobalErrorCode.NAME_BLANK);
         }
@@ -46,32 +68,11 @@ public class Member {
         }
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail(){
-        return email;
-    }
-
-    public String getBirth(){
-        return birth;
-    }
-
-    public Gender getGender(){
-        return gender;
-    }
-
-    public void delete(){
+    public void delete() {
         this.isDeleted = true;
     }
 
-    public boolean isDeleted(){
+    public boolean isDeleted() {
         return isDeleted;
     }
 }

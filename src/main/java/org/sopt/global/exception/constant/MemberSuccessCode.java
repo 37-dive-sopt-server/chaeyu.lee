@@ -1,8 +1,11 @@
 package org.sopt.global.exception.constant;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public enum MemberSuccessCode implements SuccessCode{
+    // Member
     CREATE_MEMBER_SUCCESS(HttpStatus.CREATED.value(), "회원 등록 성공"),
     GET_MEMBER_SUCCESS(HttpStatus.OK.value(), "회원 조회 성공"),
     GET_ALL_MEMBERS_SUCCESS(HttpStatus.OK.value(), "전체 회원 조회 성공"),
@@ -16,11 +19,4 @@ public enum MemberSuccessCode implements SuccessCode{
         this.msg = msg;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
 }
