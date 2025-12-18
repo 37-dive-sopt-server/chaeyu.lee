@@ -7,7 +7,6 @@ import org.sopt.domain.member.dto.response.MemberResponseDto;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.constant.GlobalErrorCode;
 import org.sopt.domain.member.repository.MemberRepository;
-import org.sopt.global.validator.MemberValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
