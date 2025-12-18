@@ -7,6 +7,7 @@ import org.sopt.domain.article.dto.response.ArticleDetailResponseDto;
 import org.sopt.domain.article.dto.response.ArticleListResponseDto;
 import org.sopt.domain.article.service.ArticleService;
 import org.sopt.domain.comment.dto.request.CommentCreateRequestDto;
+import org.sopt.domain.comment.dto.request.CommentUpdateRequestDto;
 import org.sopt.domain.comment.dto.response.CommentResponseDto;
 import org.sopt.domain.comment.service.CommentService;
 import org.sopt.global.exception.SuccessCode.ArticleSuccessCode;
@@ -52,6 +53,13 @@ public class ArticleController {
                                                           @Valid @RequestBody CommentCreateRequestDto commentCreateRequestDto) {
         CommentResponseDto response = commentService.createComment(articleId, commentCreateRequestDto);
         return BaseResponse.ok(CommentSuccessCode.CREATE_COMMENT_SUCCESS.getMsg(), response);
+    }
+
+    @PutMapping("/comments/{commentId}")
+    public BaseResponse<CommentResponseDto> updateComment(@PathVariable Long commentId,
+                                                          @Valid @RequestBody CommentUpdateRequestDto commentUpdateRequestDto) {
+        CommentResponseDto response = commentService.updateComment(commentId, commentUpdateRequestDto);
+        return BaseResponse.ok(CommentSuccessCode.UPDATE_COMMENT_SUCCESS.getMsg(), response);
     }
 }
 

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum CommentSuccessCode implements SuccessCode {
     CREATE_COMMENT_SUCCESS(HttpStatus.CREATED.value(), "댓글 등록 성공"),
+    UPDATE_COMMENT_SUCCESS(HttpStatus.CREATED.value(), "댓글 수정 성공"),
     GET_COMMENT_SUCCESS(HttpStatus.OK.value(), "댓글 조회 성공"),
     DELETE_COMMENT_SUCCESS(HttpStatus.OK.value(), "댓글 삭제 성공");
 

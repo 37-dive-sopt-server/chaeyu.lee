@@ -5,6 +5,7 @@ import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.article.repository.ArticleRepository;
 import org.sopt.domain.comment.domain.Comment;
 import org.sopt.domain.comment.dto.request.CommentCreateRequestDto;
+import org.sopt.domain.comment.dto.request.CommentUpdateRequestDto;
 import org.sopt.domain.comment.dto.response.CommentResponseDto;
 import org.sopt.domain.comment.repository.CommentRepository;
 import org.sopt.domain.member.domain.Member;
@@ -34,5 +35,15 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = Comment.create(commentCreateRequestDto.content(), article, member);
         commentRepository.save(comment);
         return CommentResponseDto.fromEntity(comment);
+    }
+
+    @Override
+    @Transactional
+    public CommentResponseDto updateComment(Long commentId, CommentUpdateRequestDto commentUpdateRequestDto) {
+       Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CustomException(GlobalErrorCode.COMMENT_NOT_FOUND));
+
+       comment.updateComment(commentUpdateRequestDto.content());
+       return CommentResponseDto.fromEntity(comment);
     }
 }
