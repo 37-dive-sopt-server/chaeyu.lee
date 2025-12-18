@@ -58,7 +58,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentResponseDto getComment(Long commentId) {
-        Comment comment = commentRepository.findById(commentId)
+        Comment comment = commentRepository.findWithMemberById(commentId)
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.COMMENT_NOT_FOUND));
         return CommentResponseDto.fromEntity(comment);
     }

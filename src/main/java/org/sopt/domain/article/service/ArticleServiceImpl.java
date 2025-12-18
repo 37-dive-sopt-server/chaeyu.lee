@@ -51,10 +51,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDetailResponseDto findOne(Long articleId) {
-        Article article = articleRepository.findById(articleId)
+        Article article = articleRepository.findWithMemberById(articleId)
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.ARTICLE_NOT_FOUND));
 
-        List<Comment> comments = commentRepository.findAllByArticle(article);
+        List<Comment> comments = commentRepository.findAllByArticleWithMember(article);
         return ArticleDetailResponseDto.fromEntity(article, comments);
     }
 
