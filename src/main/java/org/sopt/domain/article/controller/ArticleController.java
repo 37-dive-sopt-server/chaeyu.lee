@@ -3,7 +3,8 @@ package org.sopt.domain.article.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.article.dto.request.ArticleCreateRequestDto;
-import org.sopt.domain.article.dto.response.ArticleResponseDto;
+import org.sopt.domain.article.dto.response.ArticleDetailResponseDto;
+import org.sopt.domain.article.dto.response.ArticleListResponseDto;
 import org.sopt.domain.article.service.ArticleService;
 import org.sopt.global.exception.constant.ArticleSuccessCode;
 import org.sopt.global.response.BaseResponse;
@@ -29,14 +30,14 @@ public class ArticleController {
     public BaseResponse getArticle(
             @PathVariable Long articleId
     ) {
-        ArticleResponseDto response = articleService.findOne(articleId);
+        ArticleDetailResponseDto response = articleService.findOne(articleId);
 
         return BaseResponse.ok(ArticleSuccessCode.GET_ARTICLE_SUCCESS.getMsg(), response);
     }
 
     @GetMapping
-    public BaseResponse<List<ArticleResponseDto>> getAllArticles() {
-        List<ArticleResponseDto> response = articleService.findAllArticles();
+    public BaseResponse<List<ArticleListResponseDto>> getAllArticles() {
+        List<ArticleListResponseDto> response = articleService.findAllArticles();
         return BaseResponse.ok(ArticleSuccessCode.GET_ALL_ARTICLES_SUCCESS.getMsg(), response);
     }
 }
