@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLRestriction;
 import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.member.domain.Member;
 import org.sopt.global.entity.BaseTimeEntity;
@@ -12,6 +13,7 @@ import org.sopt.global.entity.BaseTimeEntity;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLRestriction("is_deleted = false")
 public class Comment extends BaseTimeEntity {
 
     @Id
@@ -29,6 +31,8 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name = "comment_id")
     private Member member;
 
+    private boolean isDeleted = false;
+
     @Builder
     private Comment(String content, Article article, Member member) {
         this.content = content;
@@ -40,7 +44,11 @@ public class Comment extends BaseTimeEntity {
         return new Comment(content, article, member);
     }
 
-    public void updateComment(String content){
+    public void updateComment(String content) {
         this.content = content;
+    }
+
+    public void softDelete() {
+        this.isDeleted = true;
     }
 }

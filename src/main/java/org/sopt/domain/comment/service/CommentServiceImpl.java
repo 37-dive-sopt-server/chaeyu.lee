@@ -1,6 +1,7 @@
 package org.sopt.domain.comment.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.SQLRestriction;
 import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.article.repository.ArticleRepository;
 import org.sopt.domain.comment.domain.Comment;
@@ -52,7 +53,6 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.COMMENT_NOT_FOUND));
-
-        commentRepository.delete(comment);
+        comment.softDelete();
     }
 }
