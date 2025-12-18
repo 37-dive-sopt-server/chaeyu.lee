@@ -3,8 +3,11 @@ package org.sopt.domain.article.service;
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.article.dto.request.ArticleCreateRequestDto;
-import org.sopt.domain.article.dto.response.ArticleResponseDto;
+import org.sopt.domain.article.dto.response.ArticleDetailResponseDto;
+import org.sopt.domain.article.dto.response.ArticleListResponseDto;
 import org.sopt.domain.article.repository.ArticleRepository;
+import org.sopt.domain.comment.domain.Comment;
+import org.sopt.domain.comment.repository.CommentRepository;
 import org.sopt.domain.member.domain.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.CustomException;
@@ -21,6 +24,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
     private final MemberRepository memberRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     @Transactional
@@ -46,17 +50,18 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleResponseDto findOne(Long articleId) {
+    public ArticleDetailResponseDto findOne(Long articleId) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.ARTICLE_NOT_FOUND));
 
-        return ArticleResponseDto.fromEntity(article);
+        List<Comment> comments = commentRepository.findAllByArticle(article);
+        return ArticleDetailResponseDto.fromEntity(article, comments);
     }
 
     @Override
-    public List<ArticleResponseDto> findAllArticles() {
+    public List<ArticleListResponseDto> findAllArticles() {
         return articleRepository.findAllWithMember().stream()
-                .map(ArticleResponseDto::fromEntity)
+                .map(ArticleListResponseDto::fromEntity)
                 .toList();
     }
 }
