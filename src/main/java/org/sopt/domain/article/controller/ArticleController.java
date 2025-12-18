@@ -6,6 +6,7 @@ import org.sopt.domain.article.dto.request.ArticleCreateRequestDto;
 import org.sopt.domain.article.dto.response.ArticleDetailResponseDto;
 import org.sopt.domain.article.dto.response.ArticleListResponseDto;
 import org.sopt.domain.article.service.ArticleService;
+import org.sopt.domain.comment.domain.Comment;
 import org.sopt.domain.comment.dto.request.CommentCreateRequestDto;
 import org.sopt.domain.comment.dto.request.CommentUpdateRequestDto;
 import org.sopt.domain.comment.dto.response.CommentResponseDto;
@@ -66,6 +67,12 @@ public class ArticleController {
     public BaseResponse<Void> deleteComment(@PathVariable Long commentId) {
         commentService.deleteComment(commentId);
         return BaseResponse.ok(CommentSuccessCode.DELETE_COMMENT_SUCCESS.getMsg(), null);
+    }
+
+    @GetMapping("/comments/{commentId}")
+    public BaseResponse<CommentResponseDto> getComment(@PathVariable Long commentId){
+        CommentResponseDto response = commentService.getComment(commentId);
+        return BaseResponse.ok(CommentSuccessCode.GET_COMMENT_SUCCESS.getMsg(), response);
     }
 }
 

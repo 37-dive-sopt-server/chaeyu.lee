@@ -55,4 +55,11 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.COMMENT_NOT_FOUND));
         comment.softDelete();
     }
+
+    @Override
+    public CommentResponseDto getComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CustomException(GlobalErrorCode.COMMENT_NOT_FOUND));
+        return CommentResponseDto.fromEntity(comment);
+    }
 }
