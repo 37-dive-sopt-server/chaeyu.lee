@@ -31,6 +31,7 @@ public record ArticleDetailResponseDto(
                 .comments(comments.stream()
                         .map(CommentResponseDto::fromEntity)
                         .toList())
+                .publishedAt(article.getCreatedAt())
                 .build();
     }
 }
