@@ -3,7 +3,7 @@ package org.sopt.domain.member.controller;
 import jakarta.validation.Valid;
 import org.sopt.domain.member.dto.request.MemberCreateRequestDto;
 import org.sopt.domain.member.dto.response.MemberResponseDto;
-import org.sopt.global.exception.constant.MemberSuccessCode;
+import org.sopt.global.exception.SuccessCode.MemberSuccessCode;
 import org.sopt.global.response.BaseResponse;
 import org.sopt.domain.member.service.MemberService;
 import org.springframework.web.bind.annotation.*;

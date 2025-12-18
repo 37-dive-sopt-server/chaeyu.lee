@@ -5,7 +5,7 @@ import org.sopt.domain.member.domain.enums.Gender;
 import org.sopt.domain.member.dto.request.MemberCreateRequestDto;
 import org.sopt.domain.member.dto.response.MemberResponseDto;
 import org.sopt.global.exception.CustomException;
-import org.sopt.global.exception.constant.GlobalErrorCode;
+import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 

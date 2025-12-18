@@ -8,7 +8,7 @@ import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.member.domain.enums.Gender;
 import org.sopt.global.entity.BaseTimeEntity;
 import org.sopt.global.exception.CustomException;
-import org.sopt.global.exception.constant.GlobalErrorCode;
+import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
 
 import java.time.LocalDate;
 import java.time.Period;

@@ -1,4 +1,4 @@
-package org.sopt.global.exception.constant;
+package org.sopt.global.exception.ErrorCode;
 
 import org.springframework.http.HttpStatus;
 
@@ -17,6 +17,9 @@ public enum GlobalErrorCode implements ErrorCode {
     // Article
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "ARTICLE_NOT_FOUND", "해당 ID의 아티클을 찾을 수 없습니다."),
     DUPLICATE_ARTICLE_TITLE(HttpStatus.BAD_REQUEST.value(), "DUPLICATE_ARTICLE_TITLE", "이미 등록된 아티클 제목입니다."),
+
+    // Comment
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "COMMENT_NOT_FOUND", "해당 ID의 댓글을 찾을 수 없습니다."),
 
     // Global
     FILE_INIT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR.value(), "FILE_INIT_FAILED", "파일 초기화를 실패했습니다."),

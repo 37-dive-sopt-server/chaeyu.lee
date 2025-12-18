@@ -1,8 +1,8 @@
 package org.sopt.global.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.sopt.global.exception.constant.ErrorCode;
-import org.sopt.global.exception.constant.GlobalErrorCode;
+import org.sopt.global.exception.ErrorCode.ErrorCode;
+import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
 import org.sopt.global.response.BaseErrorResponse;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.ResponseEntity;

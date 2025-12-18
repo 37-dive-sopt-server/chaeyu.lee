@@ -1,4 +1,4 @@
-package org.sopt.global.exception.constant;
+package org.sopt.global.exception.ErrorCode;
 
 public interface ErrorCode {
     int getHttpStatus();

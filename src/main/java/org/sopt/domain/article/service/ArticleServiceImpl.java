@@ -11,7 +11,7 @@ import org.sopt.domain.comment.repository.CommentRepository;
 import org.sopt.domain.member.domain.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.CustomException;
-import org.sopt.global.exception.constant.GlobalErrorCode;
+import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
