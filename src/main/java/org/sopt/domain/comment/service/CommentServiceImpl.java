@@ -40,10 +40,19 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public CommentResponseDto updateComment(Long commentId, CommentUpdateRequestDto commentUpdateRequestDto) {
-       Comment comment = commentRepository.findById(commentId)
+        Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.COMMENT_NOT_FOUND));
 
-       comment.updateComment(commentUpdateRequestDto.content());
-       return CommentResponseDto.fromEntity(comment);
+        comment.updateComment(commentUpdateRequestDto.content());
+        return CommentResponseDto.fromEntity(comment);
+    }
+
+    @Override
+    @Transactional
+    public void deleteComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CustomException(GlobalErrorCode.COMMENT_NOT_FOUND));
+
+        commentRepository.delete(comment);
     }
 }

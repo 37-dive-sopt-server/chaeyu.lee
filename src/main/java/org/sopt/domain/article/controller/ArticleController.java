@@ -61,6 +61,12 @@ public class ArticleController {
         CommentResponseDto response = commentService.updateComment(commentId, commentUpdateRequestDto);
         return BaseResponse.ok(CommentSuccessCode.UPDATE_COMMENT_SUCCESS.getMsg(), response);
     }
+
+    @DeleteMapping("/comments/{commentId}")
+    public BaseResponse<Void> deleteComment(@PathVariable Long commentId) {
+        commentService.deleteComment(commentId);
+        return BaseResponse.ok(CommentSuccessCode.DELETE_COMMENT_SUCCESS.getMsg(), null);
+    }
 }
 
 
