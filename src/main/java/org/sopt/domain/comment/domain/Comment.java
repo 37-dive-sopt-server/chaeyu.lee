@@ -14,6 +14,9 @@ import org.sopt.global.entity.BaseTimeEntity;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("is_deleted = false")
+@Table(name = "comment", indexes = {
+        @Index(name = "idx_comment_article_id", columnList = "article_id")
+})
 public class Comment extends BaseTimeEntity {
 
     @Id
