@@ -1,18 +1,22 @@
 package org.sopt.domain.article.dto.response;
 
-import lombok.Builder;
+import lombok.*;
 import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.article.domain.enums.Tag;
 
 import java.time.LocalDateTime;
 
+@Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Builder
-public record ArticleListResponseDto(
-        Long id,
-        String memberName,
-        Tag tag,
-        String title,
-        LocalDateTime createdAt) {
+public class ArticleListResponseDto {
+    private Long id;
+    private String memberName;
+    private Tag tag;
+    private String title;
+    private LocalDateTime createdAt;
+
     public static ArticleListResponseDto fromEntity(Article article) {
         return ArticleListResponseDto.builder()
                 .id(article.getId())
