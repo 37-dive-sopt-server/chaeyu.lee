@@ -1,7 +1,6 @@
 package org.sopt.domain.comment.service;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.SQLRestriction;
 import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.article.repository.ArticleRepository;
 import org.sopt.domain.comment.domain.Comment;
@@ -13,6 +12,8 @@ import org.sopt.domain.member.domain.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "article", key = "#articleId", cacheManager = "cacheManager")
     public CommentResponseDto createComment(Long articleId, CommentCreateRequestDto commentCreateRequestDto) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.ARTICLE_NOT_FOUND));
