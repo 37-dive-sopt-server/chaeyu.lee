@@ -30,6 +30,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "articleList", allEntries = true, cacheManager = "cacheManager")
     public Long createArticle(ArticleCreateRequestDto request) {
 
         Member member = memberRepository.findById(request.memberId())
