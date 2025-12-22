@@ -12,6 +12,8 @@ import org.sopt.domain.member.domain.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +52,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Cacheable(value = "article", key = "#articleId", cacheManager = "cacheManager")
     public ArticleDetailResponseDto findOne(Long articleId) {
         Article article = articleRepository.findWithMemberById(articleId)
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.ARTICLE_NOT_FOUND));
@@ -59,6 +62,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Cacheable(value = "articleList", key = "'all'", cacheManager = "cacheManager")
     public List<ArticleListResponseDto> findAllArticles() {
         return articleRepository.findAllWithMember().stream()
                 .map(ArticleListResponseDto::fromEntity)
