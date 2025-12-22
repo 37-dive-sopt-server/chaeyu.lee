@@ -6,17 +6,17 @@ import org.sopt.domain.article.dto.request.ArticleCreateRequestDto;
 import org.sopt.domain.article.dto.response.ArticleDetailResponseDto;
 import org.sopt.domain.article.dto.response.ArticleListResponseDto;
 import org.sopt.domain.article.service.ArticleService;
-import org.sopt.domain.comment.domain.Comment;
 import org.sopt.domain.comment.dto.request.CommentCreateRequestDto;
-import org.sopt.domain.comment.dto.request.CommentUpdateRequestDto;
 import org.sopt.domain.comment.dto.response.CommentResponseDto;
 import org.sopt.domain.comment.service.CommentService;
 import org.sopt.global.exception.SuccessCode.ArticleSuccessCode;
 import org.sopt.global.exception.SuccessCode.CommentSuccessCode;
 import org.sopt.global.response.BaseResponse;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,17 +35,18 @@ public class ArticleController {
     }
 
     @GetMapping("/{articleId}")
-    public BaseResponse getArticle(
+    public BaseResponse<ArticleDetailResponseDto> getArticle(
             @PathVariable Long articleId
     ) {
         ArticleDetailResponseDto response = articleService.findOne(articleId);
-
         return BaseResponse.ok(ArticleSuccessCode.GET_ARTICLE_SUCCESS.getMsg(), response);
     }
 
     @GetMapping
-    public BaseResponse<List<ArticleListResponseDto>> getAllArticles() {
-        List<ArticleListResponseDto> response = articleService.findAllArticles();
+    public BaseResponse<Page<ArticleListResponseDto>> getAllArticles(
+            @RequestParam(required = false) String keyword,
+            @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
+        Page<ArticleListResponseDto> response = articleService.findAllArticles(keyword, pageable);
         return BaseResponse.ok(ArticleSuccessCode.GET_ALL_ARTICLES_SUCCESS.getMsg(), response);
     }
 

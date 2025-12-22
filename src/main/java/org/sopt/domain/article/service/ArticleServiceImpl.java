@@ -14,6 +14,8 @@ import org.sopt.global.exception.CustomException;
 import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,9 +66,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Cacheable(value = "articleList", key = "'all'", cacheManager = "cacheManager")
-    public List<ArticleListResponseDto> findAllArticles() {
-        return articleRepository.findAllWithMember().stream()
-                .map(ArticleListResponseDto::fromEntity)
-                .toList();
+    public Page<ArticleListResponseDto> findAllArticles(String keyword, Pageable pageable) {
+        Page<Article> articles;
+
+        if (keyword == null || keyword.isEmpty()) {
+            articles = articleRepository.findAllWithMember(pageable);
+        } else {
+            articles = articleRepository.searchByKeyword(keyword, pageable);
+        }
+
+        return articles.map(ArticleListResponseDto::fromEntity);
     }
 }
