@@ -57,14 +57,17 @@ public class Member extends BaseTimeEntity {
     }
 
     private void validateAge(String birth) {
+        LocalDate birthDate;
+
         try {
-            LocalDate birthDate = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyyMMdd"));
-            int age = Period.between(birthDate, LocalDate.now()).getYears();
-            if (age < 20) {
-                throw new CustomException(GlobalErrorCode.UNDER_20_CANNOT_JOIN);
-            }
+            birthDate = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyyMMdd"));
         } catch (Exception e) {
             throw new CustomException(GlobalErrorCode.INVALID_BIRTH_FORMAT);
+        }
+
+        int age = Period.between(birthDate, LocalDate.now()).getYears();
+        if (age < 20) {
+            throw new CustomException(GlobalErrorCode.UNDER_20_CANNOT_JOIN);
         }
     }
 
