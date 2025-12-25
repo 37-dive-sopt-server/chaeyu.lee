@@ -8,7 +8,7 @@ import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.member.domain.enums.Gender;
 import org.sopt.global.entity.BaseTimeEntity;
 import org.sopt.global.exception.CustomException;
-import org.sopt.global.exception.constant.GlobalErrorCode;
+import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -57,14 +57,17 @@ public class Member extends BaseTimeEntity {
     }
 
     private void validateAge(String birth) {
+        LocalDate birthDate;
+
         try {
-            LocalDate birthDate = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyyMMdd"));
-            int age = Period.between(birthDate, LocalDate.now()).getYears();
-            if (age < 20) {
-                throw new CustomException(GlobalErrorCode.UNDER_20_CANNOT_JOIN);
-            }
+            birthDate = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyyMMdd"));
         } catch (Exception e) {
             throw new CustomException(GlobalErrorCode.INVALID_BIRTH_FORMAT);
+        }
+
+        int age = Period.between(birthDate, LocalDate.now()).getYears();
+        if (age < 20) {
+            throw new CustomException(GlobalErrorCode.UNDER_20_CANNOT_JOIN);
         }
     }
 

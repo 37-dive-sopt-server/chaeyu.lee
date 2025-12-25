@@ -2,7 +2,7 @@ package org.sopt.domain.member.domain.enums;
 
 import lombok.Getter;
 import org.sopt.global.exception.CustomException;
-import org.sopt.global.exception.constant.GlobalErrorCode;
+import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
 
 @Getter
 public enum Gender {

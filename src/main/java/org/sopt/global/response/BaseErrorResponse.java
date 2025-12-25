@@ -1,6 +1,6 @@
 package org.sopt.global.response;
 
-import org.sopt.global.exception.constant.ErrorCode;
+import org.sopt.global.exception.ErrorCode.ErrorCode;
 
 public record BaseErrorResponse(int status, String code, String msg) {
 

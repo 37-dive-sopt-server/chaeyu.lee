@@ -11,6 +11,9 @@ import org.sopt.global.entity.BaseTimeEntity;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "article", indexes = {
+        @Index(name = "idx_article_created_at", columnList = "created_at")
+})
 public class Article extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

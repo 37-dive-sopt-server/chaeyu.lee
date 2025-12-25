@@ -3,12 +3,19 @@ package org.sopt.domain.article.service;
 import lombok.RequiredArgsConstructor;
 import org.sopt.domain.article.domain.Article;
 import org.sopt.domain.article.dto.request.ArticleCreateRequestDto;
-import org.sopt.domain.article.dto.response.ArticleResponseDto;
+import org.sopt.domain.article.dto.response.ArticleDetailResponseDto;
+import org.sopt.domain.article.dto.response.ArticleListResponseDto;
 import org.sopt.domain.article.repository.ArticleRepository;
+import org.sopt.domain.comment.domain.Comment;
+import org.sopt.domain.comment.repository.CommentRepository;
 import org.sopt.domain.member.domain.Member;
 import org.sopt.domain.member.repository.MemberRepository;
 import org.sopt.global.exception.CustomException;
-import org.sopt.global.exception.constant.GlobalErrorCode;
+import org.sopt.global.exception.ErrorCode.GlobalErrorCode;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +28,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
     private final MemberRepository memberRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     @Transactional
+    @CacheEvict(value = "articleList", allEntries = true, cacheManager = "cacheManager")
     public Long createArticle(ArticleCreateRequestDto request) {
 
         Member member = memberRepository.findById(request.memberId())
@@ -46,17 +55,26 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleResponseDto findOne(Long articleId) {
-        Article article = articleRepository.findById(articleId)
+    @Cacheable(value = "article", key = "#articleId", cacheManager = "cacheManager")
+    public ArticleDetailResponseDto findOne(Long articleId) {
+        Article article = articleRepository.findWithMemberById(articleId)
                 .orElseThrow(() -> new CustomException(GlobalErrorCode.ARTICLE_NOT_FOUND));
 
-        return ArticleResponseDto.fromEntity(article);
+        List<Comment> comments = commentRepository.findAllByArticleWithMember(article);
+        return ArticleDetailResponseDto.fromEntity(article, comments);
     }
 
     @Override
-    public List<ArticleResponseDto> findAllArticles() {
-        return articleRepository.findAllWithMember().stream()
-                .map(ArticleResponseDto::fromEntity)
-                .toList();
+    @Cacheable(value = "articleList", key = "'all'", cacheManager = "cacheManager")
+    public Page<ArticleListResponseDto> findAllArticles(String keyword, Pageable pageable) {
+        Page<Article> articles;
+
+        if (keyword == null || keyword.isEmpty()) {
+            articles = articleRepository.findAllWithMember(pageable);
+        } else {
+            articles = articleRepository.searchByKeyword(keyword, pageable);
+        }
+
+        return articles.map(ArticleListResponseDto::fromEntity);
     }
 }
